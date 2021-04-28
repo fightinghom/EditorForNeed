@@ -161,6 +161,7 @@ function pasteTextHtml(editor: Editor, pasteEvents: Function[]) {
 					// if (!lastEl?.length) return
 					// editor.selection.moveCursor(lastEl.elems[0])
 				} else {
+					// ------------------ 影响到了图片复制先注释掉 yanghao -----------------------
 					editor.cmd.do('insertHTML', html) // html
 					// 如果用户从百度等网站点击复制得到的图片是一串img标签且待src的http地址
 					// 见 https://github.com/wangeditor-team/wangEditor/issues/3119
@@ -169,6 +170,7 @@ function pasteTextHtml(editor: Editor, pasteEvents: Function[]) {
 					// if (!isHasOnlyImgEleReg.test(html)) {
 					// 	editor.cmd.do('insertHTML', html)
 					// }
+					// --------------------------------------------------------------------------
 				}
 			}
 		} catch (ex) {

@@ -201,7 +201,8 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 									}
 								}
 							} else {
-								text = html
+								const end4Str = html.slice(html.length - 4)
+								text = end4Str === '<br>' ? html.slice(0, html.length - 4) : html
 							}
 							// ----------------------------------------------------------------------------------
 							// 链接为空，则不插入
