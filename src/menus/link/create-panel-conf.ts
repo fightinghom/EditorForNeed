@@ -57,19 +57,19 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 		//     // 选区未处于链接中，直接插入即可
 		//     editor.cmd.do('insertHTML', `<a href="${link}" target="_blank">${text}</a>`)
 		// }
-		// ----------------------将链接的json串放到data-json属性上 yanghao-------------------------
+		// ----------------------将链接的json串放到href属性上 yanghao-------------------------
 		if (isActive(editor)) {
 			// 选区处于链接中，则选中整个菜单，再执行 insertHTML
 			selectLinkElem()
 			editor.cmd.do(
 				'insertHTML',
-				`<a class="editor-link" href="javascript:;" data-json="${link}">${text}</a>`
+				`<a class="editor-link" href="javascript:;var base64='${link}'">${text}</a>`
 			)
 		} else {
 			// 选区未处于链接中，直接插入即可
 			editor.cmd.do(
 				'insertHTML',
-				`<a class="editor-link" href="javascript:;" data-json="${link}">${text}</a>`
+				`<a class="editor-link" href="javascript:;var base64='${link}'">${text}</a>`
 			)
 		}
 		// ----------------------------------------------------------------------------------------
@@ -138,14 +138,16 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                         <input
                             id="${inputLinkId}"
                             type="text"
+														${link ? 'disabled="disabled"' : ''}
                             class="block"
                             value="${link}"
-                            placeholder="${editor.i18next.t('如')} https://..."/>
+                            placeholder="请点击此处选择链接"/>
                         </td>
                         <div class="w-e-button-container">
-                            <button type="button" id="${btnOkId}" class="right">
-                                ${editor.i18next.t('插入')}
-                            </button>
+														${!link
+						? `<button type="button" id="${btnOkId}" class="right"> ${editor.i18next.t('插入')} </button>`
+						: ''
+					}
                             <button type="button" id="${btnDelId}" class="gray right" style="display:${delBtnDisplay}">
                                 ${editor.i18next.t('menus.panelMenus.link.取消链接')}
                             </button>

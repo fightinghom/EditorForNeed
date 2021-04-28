@@ -37,9 +37,9 @@ class Link extends PanelMenu implements MenuActive {
 			}
 			// ----------------------获取A标签 yanghao----------------------
 			$linkElem = getATag($linkElem)
-			// -------------------------------------------------------------
 			// 弹出 panel
-			this.createPanel($linkElem.text(), $linkElem.attr('data-json'))
+			this.createPanel($linkElem.text(), $linkElem.attr('href'))
+			// -------------------------------------------------------------
 		} else {
 			// 菜单未被激活，说明选区不在链接里
 			if (editor.selection.isSelectionEmpty()) {
