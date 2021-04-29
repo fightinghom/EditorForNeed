@@ -25,7 +25,9 @@ export const IGNORE_TAGS = new Set([
 // 指定标签必要的属性
 export const NECESSARY_ATTRS = new Map([
 	['img', ['src', 'alt']],
-	['a', ['href', 'target']],
+	// ------------------ 防止粘贴的class和data-json被过滤掉 yanghao------------------
+	['a', ['href', 'target', 'class', 'data-json']],
+	// ------------------ 防止粘贴的class和data-json被过滤掉 yanghao------------------
 	['td', ['colspan', 'rowspan']],
 	['th', ['colspan', 'rowspan']],
 ])
