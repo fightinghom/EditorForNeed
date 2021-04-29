@@ -37,16 +37,16 @@ class Command {
 
 		// 执行
 		switch (name) {
-		case 'insertHTML':
-			this.insertHTML(value as string)
-			break
-		case 'insertElem':
-			this.insertElem(value as DomElement)
-			break
-		default:
-			// 默认 command
-			this.execCommand(name, value as string)
-			break
+			case 'insertHTML':
+				this.insertHTML(value as string)
+				break
+			case 'insertElem':
+				this.insertElem(value as DomElement)
+				break
+			default:
+				// 默认 command
+				this.execCommand(name, value as string)
+				break
 		}
 
 		// 修改菜单状态
@@ -108,6 +108,7 @@ class Command {
 	 * @param value value
 	 */
 	private execCommand(name: string, value: string): void {
+		console.log('insertHTML fn', value)
 		document.execCommand(name, false, value)
 	}
 

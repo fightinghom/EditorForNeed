@@ -57,19 +57,19 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 		//     // 选区未处于链接中，直接插入即可
 		//     editor.cmd.do('insertHTML', `<a href="${link}" target="_blank">${text}</a>`)
 		// }
-		// ----------------------将链接的json串放到href属性上 yanghao-------------------------
+		// ----------------------将链接的json串放到data-json属性上 yanghao-------------------------
 		if (isActive(editor)) {
 			// 选区处于链接中，则选中整个菜单，再执行 insertHTML
 			selectLinkElem()
 			editor.cmd.do(
 				'insertHTML',
-				`<a class="editor-link" href="javascript:;var base64='${link}'">${text}</a>`
+				`<a class="editor-link" data-json="${link}">${text}</a>`
 			)
 		} else {
 			// 选区未处于链接中，直接插入即可
 			editor.cmd.do(
 				'insertHTML',
-				`<a class="editor-link" href="javascript:;var base64='${link}'">${text}</a>`
+				`<a class="editor-link" data-json="${link}">${text}</a>`
 			)
 		}
 		// ----------------------------------------------------------------------------------------
@@ -164,6 +164,7 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 							editor.selection.restoreSelection()
 							const topNode = editor.selection.getSelectionRangeTopNodes()[0].getNode()
 							const selection = window.getSelection()
+							console.log('selection', selection?.getRangeAt(0))
 							// 执行插入链接
 							const $link = $('#' + inputLinkId)
 							const $text = $('#' + inputTextId)
@@ -179,8 +180,12 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 								let imgReg = /<img.*?(?:>|\/>)/gi
 								// @ts-ignore：暂时无法解决
 								if (imgReg.test(selection.anchorNode.outerHTML)) {
+									const selectionRange = selection.getRangeAt(0)
+									const startOffset = selectionRange.startOffset
+									const container = selectionRange.startContainer
+									const selectImg = container.childNodes[startOffset]
 									// @ts-ignore：暂时无法解决
-									html = selection.anchorNode.innerHTML
+									html = selectImg.outerHTML
 									isImg = true
 								} else {
 									html = insertHtml(selection, topNode)?.trim()
@@ -201,9 +206,11 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 									}
 								}
 							} else {
-								const end4Str = html.slice(html.length - 4)
-								text = end4Str === '<br>' ? html.slice(0, html.length - 4) : html
+								// const end4Str = html.slice(html.length - 4)
+								// text = end4Str === '<br>' ? html.slice(0, html.length - 4) : html
+								text = html
 							}
+							console.log('text', text)
 							// ----------------------------------------------------------------------------------
 							// 链接为空，则不插入
 							if (!link) return
