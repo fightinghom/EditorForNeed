@@ -85,7 +85,6 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 		// const selectionText = $selectedLink.text()
 		// editor.cmd.do('insertHTML', '<span>' + selectionText + '</span>')
 		const tagA = getATag($selectedLink)
-		console.log('tagA', tagA)
 		if (tagA) {
 			const htmlInTagA = tagA.html()
 			editor.cmd.do('insertHTML', '<span>' + htmlInTagA + '</span>')
@@ -160,7 +159,6 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 							editor.selection.restoreSelection()
 							const topNode = editor.selection.getSelectionRangeTopNodes()[0].getNode()
 							const selection = window.getSelection()
-							console.log('selection', selection?.getRangeAt(0))
 							// 执行插入链接
 							const $link = $('#' + inputLinkId)
 							const $text = $('#' + inputTextId)
@@ -206,7 +204,6 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 								// text = end4Str === '<br>' ? html.slice(0, html.length - 4) : html
 								text = html
 							}
-							console.log('text', text)
 							// ----------------------------------------------------------------------------------
 							// 链接为空，则不插入
 							if (!link) return

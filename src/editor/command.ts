@@ -108,7 +108,6 @@ class Command {
 	 * @param value value
 	 */
 	private execCommand(name: string, value: string): void {
-		console.log('insertHTML fn', value)
 		document.execCommand(name, false, value)
 	}
 

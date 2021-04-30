@@ -42,7 +42,6 @@ function createShowHideFn(editor: Editor) {
 					// editor.cmd.do('insertHTML', '<span>' + selectionText + '</span>')
 					// ---------------------------防止其他样式被删除 yanghao--------------------------
 					const tagA = getATag($link)
-					console.log('tagA', tagA)
 					if (tagA) {
 						const htmlInTagA = tagA.html()
 						editor.cmd.do('insertHTML', '<span>' + htmlInTagA + '</span>')
