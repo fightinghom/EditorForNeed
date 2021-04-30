@@ -102,6 +102,9 @@ export type ConfigType = {
 	customInsertVideo: Function | null
 
 	menuTooltipPosition: tooltipPositionType
+	// -----------------增加链接输入框focus事件 yanghao-----------------
+	linkInputClickHandle: EventListenerOrEventListenerObject
+	// ---------------------------------------------------------------
 }
 
 export type Resource = {
@@ -115,8 +118,8 @@ export type ResourceLanguage = {
 export type ResourceKey =
 	| string
 	| {
-			[key: string]: any
-	  }
+		[key: string]: any
+	}
 
 // 合并所有的配置信息
 const defaultConfig = Object.assign(

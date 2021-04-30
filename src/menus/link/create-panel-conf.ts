@@ -10,15 +10,11 @@ import $, { DomElement } from '../../utils/dom-core'
 import isActive from './is-active'
 import { insertHtml } from './util'
 import { getATag } from '../../utils/byYanghao/getTagA'
-interface thisWindow extends Window {
-	$inputLinkId: string
-}
-declare let window: thisWindow & typeof globalThis
 export default function (editor: Editor, text: string, link: string): PanelConf {
 	// panel 中需要用到的id
 	const inputLinkId = getRandom('input-link')
-	// ----------------------将获取的linkInputId注册到window上 yanghao-------------------------
-	window.$inputLinkId = inputLinkId
+	// ----------------------将获取的linkInputId注册到editor上 yanghao-------------------------
+	editor.$inputLinkId = inputLinkId
 	// ---------------------------------------------------------------------------------------
 	const inputTextId = getRandom('input-text')
 	const btnOkId = getRandom('btn-ok')

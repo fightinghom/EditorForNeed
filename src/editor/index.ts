@@ -74,6 +74,9 @@ class Editor {
 
 	/** 启用api */
 	public enable: Function
+	// -----------------增加链接输入框ID，以便在外部可取 yanghao-----------------
+	public $inputLinkId: string
+	// -----------------------------------------------------------------------
 
 	/**
 	 * 构造函数
@@ -112,6 +115,9 @@ class Editor {
 		const { disable, enable } = disableInit(this)
 		this.disable = disable
 		this.enable = enable
+		// -----------------增加链接输入框ID，以便在外部可取 yanghao-----------------
+		this.$inputLinkId = ''
+		// -----------------------------------------------------------------------
 	}
 
 	/**

@@ -23,11 +23,6 @@ export type PanelConf = {
 	height: number | 0
 	tabs: PanelTabConf[]
 }
-interface thisWindow extends Window {
-	$inputLinkId: string
-	editorSetLink: EventListenerOrEventListenerObject
-}
-declare let window: thisWindow & typeof globalThis
 class Panel {
 	// 记录已经创建过的 panelMenu
 	static createdMenus: Set<PanelMenu> = new Set()
@@ -198,11 +193,9 @@ class Panel {
 		menu.setPanel(this)
 		Panel.createdMenus.add(menu)
 		// -------------------------为链接输入框添加事件 yanghao------------------------
-		console.log('create panel', window.$inputLinkId)
-		let linkInput = document.getElementById(window.$inputLinkId.toString())
-		console.dir(linkInput)
+		let linkInput = document.getElementById(menu.editor.$inputLinkId.toString())
 		if (linkInput) {
-			linkInput.addEventListener('focus', window.editorSetLink || null, true)
+			linkInput.addEventListener('focus', menu.editor.config.linkInputClickHandle, true)
 		}
 		// ---------------------------------------------------------------------------
 	}
