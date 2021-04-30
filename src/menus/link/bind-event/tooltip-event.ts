@@ -23,9 +23,16 @@ function createShowHideFn(editor: Editor) {
 			{
 				$elem: $(`<span>${editor.i18next.t('menus.panelMenus.link.查看链接')}</span>`),
 				onClick: (editor: Editor, $link: DomElement) => {
-					const link = $link.attr('href')
-					window.open(link, '_target')
-
+					// ------------------ 改变查看链接的触发方式 yanghao ------------------
+					if (editor.config.seeLinkClickHandle) {
+						editor.config.seeLinkClickHandle($link)
+					} else {
+						// const link = $link.attr('href')
+						// window.open(link, '_target')
+						const link = $link.attr('data-json')
+						window.open(link, '_target')
+					}
+					// ------------------------------------------------------------------
 					// 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
 					return true
 				},

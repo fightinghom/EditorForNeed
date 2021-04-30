@@ -102,8 +102,11 @@ export type ConfigType = {
 	customInsertVideo: Function | null
 
 	menuTooltipPosition: tooltipPositionType
-	// -----------------增加链接输入框focus事件 yanghao-----------------
+	// -----------------自定义config事件 yanghao-----------------
+	// linkInput绑定的fucos事件
 	linkInputClickHandle: EventListenerOrEventListenerObject
+	// 查看链接绑定的click事件
+	seeLinkClickHandle: Function
 	// ---------------------------------------------------------------
 }
 
