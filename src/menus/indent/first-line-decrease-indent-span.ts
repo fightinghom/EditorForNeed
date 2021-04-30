@@ -1,6 +1,6 @@
 /**
  * @description 减少首行缩进
- * @author tonghan
+ * @author yanghao
  */
 
 import { DomElement } from '../../utils/dom-core'
