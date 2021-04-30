@@ -32,6 +32,10 @@ class FontColor extends DropListMenu implements MenuActive {
 				this.command(value)
 			},
 		}
+		colorListConf.list.push({
+			$elem: $(''),
+			value: 'cus',
+		})
 		super($elem, editor, colorListConf)
 	}
 
@@ -81,7 +85,7 @@ class FontColor extends DropListMenu implements MenuActive {
 	/**
 	 * 尝试修改菜单激活状态
 	 */
-	public tryChangeActive(): void {}
+	public tryChangeActive(): void { }
 }
 
 export default FontColor

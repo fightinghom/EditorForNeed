@@ -25,7 +25,7 @@ class DropList {
 	private conf: DropListConf
 	private $container: DomElement
 	private rendered: boolean
-	private _show: boolean
+	public _show: boolean
 
 	public hideTimeoutId: number
 
@@ -56,19 +56,43 @@ class DropList {
 			const value = item.value
 			const $li = $('<li class="w-e-item"></li>')
 			if ($elem) {
-				$li.append($elem)
-				$list.append($li)
-				$li.on('click', (e: Event) => {
-					clickHandler(value)
-
-					// 阻止冒泡
-					e.stopPropagation()
-
-					// item 点击之后，隐藏 list
-					this.hideTimeoutId = window.setTimeout(() => {
-						this.hide()
+				if (value === 'cus') {
+					$li.css('width', '100%')
+					const colorWapper = $(`<div style="display: flex"></div>`)
+					const colorInput = $(`<input type="color" value="#000000" style="flex: 1" />`)
+					colorInput.on('click', (e: Event) => {
+						// 阻止冒泡
+						e.stopPropagation()
 					})
-				})
+					const colorComfirm = $(`<button type="button">确定</button>`)
+					colorComfirm.on('click', (e: Event) => {
+						const color = colorInput.val()
+						clickHandler(color)
+						// 阻止冒泡
+						e.stopPropagation()
+						// item 点击之后，隐藏 list
+						this.hideTimeoutId = window.setTimeout(() => {
+							this.hide()
+						})
+					})
+					colorWapper.append(colorInput)
+					colorWapper.append(colorComfirm)
+					$li.append(colorWapper)
+				} else {
+					$li.append($elem)
+					$li.on('click', (e: Event) => {
+						clickHandler(value)
+
+						// 阻止冒泡
+						e.stopPropagation()
+
+						// item 点击之后，隐藏 list
+						this.hideTimeoutId = window.setTimeout(() => {
+							this.hide()
+						})
+					})
+				}
+				$list.append($li)
 			}
 		})
 		$container.append($list)

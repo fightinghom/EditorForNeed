@@ -42,19 +42,27 @@ class DropListMenu extends Menu {
 				if (editor.selection.getRange() == null) {
 					return
 				}
-				$elem.css('z-index', editor.zIndex.get('menu'))
-				// 触发 droplist 悬浮事件
-				editor.txt.eventHooks.dropListMenuHoverEvents.forEach(fn => fn())
-				// 显示
-				dropList.show()
+				if (dropList._show) {
+					$elem.css('z-index', 'auto')
+					// 隐藏
+					dropList.hideTimeoutId = window.setTimeout(() => {
+						dropList.hide()
+					})
+				} else {
+					$elem.css('z-index', editor.zIndex.get('menu'))
+					// 触发 droplist 悬浮事件
+					editor.txt.eventHooks.dropListMenuHoverEvents.forEach(fn => fn())
+					// 显示
+					dropList.show()
+				}
 			})
-			.on('mouseleave', () => {
-				$elem.css('z-index', 'auto')
-				// 隐藏
-				dropList.hideTimeoutId = window.setTimeout(() => {
-					dropList.hide()
-				})
-			})
+		// .on('mouseleave', () => {
+		// 	$elem.css('z-index', 'auto')
+		// 	// 隐藏
+		// 	dropList.hideTimeoutId = window.setTimeout(() => {
+		// 		dropList.hide()
+		// 	})
+		// })
 	}
 }
 
