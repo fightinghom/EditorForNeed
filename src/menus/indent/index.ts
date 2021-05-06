@@ -112,7 +112,7 @@ class Indent extends DropListMenu implements MenuActive {
 
 		if ($selectionStartElem.length <= 0) return
 
-		if ($selectionStartElem.elems[0].style['paddingLeft'] != '') {
+		if ($selectionStartElem.elems[0].style['paddingLeft'] != '' || $selectionStartElem.elems[0].style['textIndent'] != '') {
 			this.active()
 		} else {
 			this.unActive()
