@@ -50,8 +50,8 @@ function operateElement($node: DomElement, type: String, editor: Editor): void {
     if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
     else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
     // ---------------------- 增加/减少首行缩进 yanghao --------------------------
-    else if (type === 'flincrease') increaseIndentSpan($elem)
-    else if (type === 'fldecrease') decreaseIndentSpan($elem)
+    else if (type === 'flincrease') increaseIndentSpan($elem, parseIndentation(editor))
+    else if (type === 'fldecrease') decreaseIndentSpan($elem, parseIndentation(editor))
     // ---------------------------------------------------------------------
   }
 }

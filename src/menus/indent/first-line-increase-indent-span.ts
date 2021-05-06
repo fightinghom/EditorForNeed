@@ -3,21 +3,19 @@
  * @author yanghao
  */
 
+import { IndentationOptions } from '../../config/menus'
 import { DomElement } from '../../utils/dom-core'
 
-function increaseIndentSpan($node: DomElement): void {
-  // 这里获取的是一个P标签，暂时不处理H标签
+function increaseIndentSpan($node: DomElement, options: IndentationOptions): void {
   const $elem = $node.elems[0]
-  // 防止创建的span换行，需要设置父元素word-break: break-all
-  $elem.style.wordBreak = 'break-word'
-  // 创建放在最前面的表示首行缩进的span
-  let indentSpan = document.createElement('span')
-  indentSpan.classList.add('2em-intent-span')
-  indentSpan.style.display = 'inline-block'
-  indentSpan.style.width = '2em'
-  // 将首行缩进的span添加到最前面
-  const firstChild = $elem.firstChild
-  $elem.insertBefore(indentSpan, firstChild)
+  if ($elem.style['textIndent'] === '') {
+    $node.css('text-indent', options.value + options.unit)
+  } else {
+    const oldPL = $elem.style['textIndent']
+    const oldVal = oldPL.slice(0, oldPL.length - options.unit.length)
+    const newVal = Number(oldVal) + options.value
+    $node.css('text-indent', `${newVal}${options.unit}`)
+  }
 }
 
 export default increaseIndentSpan
