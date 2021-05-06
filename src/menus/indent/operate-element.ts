@@ -45,8 +45,10 @@ function parseIndentation(editor: Editor): IndentationOptions {
 function operateElement($node: DomElement, type: String, editor: Editor): void {
   const $elem = $node.getNodeTop(editor)
   const reg = /^P$/i
-
-  if (reg.test($elem.getNodeName())) {
+  // ----------------------增加对H标签的过滤 yanghao----------------------------
+  const regH = /^H\d$/i
+  if (reg.test($elem.getNodeName()) || regH.test($elem.getNodeName())) {
+    // ------------------------------------------------------------------------
     if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
     else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
     // ---------------------- 增加/减少首行缩进 yanghao --------------------------
