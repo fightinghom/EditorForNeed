@@ -45,9 +45,12 @@ function parseIndentation(editor: Editor): IndentationOptions {
 function operateElement($node: DomElement, type: String, editor: Editor): void {
   const $elem = $node.getNodeTop(editor)
   const reg = /^P$/i
-  // ----------------------增加对H标签的过滤 yanghao----------------------------
+  // ----------------------增加对H,UL,OL,DIV标签的过滤 yanghao----------------------------
   const regH = /^H\d$/i
-  if (reg.test($elem.getNodeName()) || regH.test($elem.getNodeName())) {
+  const regUl = /^UL$/i
+  const regOl = /^OL$/i
+  const regDiv = /^DIV$/i
+  if (reg.test($elem.getNodeName()) || regH.test($elem.getNodeName()) || regDiv.test($elem.getNodeName())) {
     // ------------------------------------------------------------------------
     if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
     else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
@@ -55,7 +58,12 @@ function operateElement($node: DomElement, type: String, editor: Editor): void {
     else if (type === 'flincrease') increaseIndentSpan($elem, parseIndentation(editor))
     else if (type === 'fldecrease') decreaseIndentSpan($elem, parseIndentation(editor))
     // ---------------------------------------------------------------------
+    // -----------------------对UL、OL只执行段落缩进--------------------------
+  } else if (regUl.test($elem.getNodeName()) || regOl.test($elem.getNodeName())) {
+    if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
+    else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
   }
+  // ---------------------------------------------------------------------
 }
 
 export default operateElement
