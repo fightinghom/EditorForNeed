@@ -26,9 +26,9 @@ export type FontSizeConfType = {
 // font-style 类型
 export type FontStyleType = Array<
 	| {
-			name: string
-			value: string
-	  }
+		name: string
+		value: string
+	}
 	| string
 >
 
@@ -57,6 +57,7 @@ export default {
 		'lineHeight',
 		'foreColor',
 		'backColor',
+		'paragraph',
 		'link',
 		'list',
 		'todo',

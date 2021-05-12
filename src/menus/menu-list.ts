@@ -27,6 +27,7 @@ import Table from './table/index'
 import Code from './code'
 import SplitLine from './split-line/index'
 import Todo from './todo'
+import Paragraph from './paragraph'
 
 export type MenuListType = {
 	[key: string]: any
@@ -57,4 +58,5 @@ export default {
 	code: Code,
 	splitLine: SplitLine,
 	todo: Todo,
+	paragraph: Paragraph
 }
