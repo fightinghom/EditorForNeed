@@ -239,8 +239,9 @@ export function hexToRgb(hex: string) {
 }
 
 /**
- * rgb color 转换为Hex
+ * @description rgb color 转换为Hex
  * @param rgb string
+ * @author yanghao
  */
 export function rgbToHex(rgb: string) {
 	const colors = rgb.split(/rgb\(|, +|\)/).filter((item) => item)

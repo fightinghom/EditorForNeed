@@ -1,6 +1,6 @@
 /**
- * @description 链接 菜单
- * @author wangfupeng
+ * @description 段落 菜单
+ * @author yanghao
  */
 
 import PanelMenu from '../menu-constructors/PanelMenu'
@@ -40,8 +40,7 @@ class Paragraph extends PanelMenu implements MenuActive {
 	}
 	/**
 	 * 创建 panel
-	 * @param text 文本
-	 * @param link 链接
+	 * @param options 段落样式
 	 */
 	private createPanel(options: paragraphOptions): void {
 		const conf = createPanelConf(this.editor, options)

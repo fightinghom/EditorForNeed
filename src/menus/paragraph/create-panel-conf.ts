@@ -1,6 +1,6 @@
 /**
- * @description link 菜单 panel tab 配置
- * @author wangfupeng
+ * @description paragraph panel 配置
+ * @author yanghao
  */
 
 import Editor from '../../editor/index'

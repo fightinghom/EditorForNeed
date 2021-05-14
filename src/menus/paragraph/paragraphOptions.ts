@@ -1,3 +1,7 @@
+/**
+ * @description 段落配置
+ * @author yanghao
+ */
 class paragraphOptions extends Object {
   public marginTop: string | null | undefined;
   public marginRight: string | null | undefined;

@@ -1,3 +1,7 @@
+/**
+ * @description 操作元素
+ * @author yanghao
+ */
 import { DomElement } from '../../utils/dom-core'
 import Editor from '../../editor/index'
 import paragraphOptions from './paragraphOptions'
