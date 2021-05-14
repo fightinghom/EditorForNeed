@@ -10,6 +10,8 @@ import { MenuActive } from '../menu-constructors/Menu'
 import isActive from './is-active'
 import createPanelConf from './create-panel-conf'
 import Panel from '../menu-constructors/Panel'
+import paragraphOptions from './paragraphOptions'
+import { rgbToHex } from '../../utils/util'
 
 class Paragraph extends PanelMenu implements MenuActive {
 	constructor(editor: Editor) {
@@ -17,18 +19,32 @@ class Paragraph extends PanelMenu implements MenuActive {
 		super($elem, editor)
 	}
 	public clickHandler(): void {
-		// const editor = this.editor
-		// let $topElement
-		// $topElement = editor.selection.getSelectionRangeTopNodes()
-		this.createPanel()
+		const editor = this.editor
+		let $topElement
+		$topElement = editor.selection.getSelectionRangeTopNodes()[0].getNodeTop(editor).elems[0]
+		const options = {
+			marginTop: $topElement.style['marginTop'],
+			marginRight: $topElement.style['marginRight'],
+			marginBottom: $topElement.style['marginBottom'],
+			marginLeft: $topElement.style['marginLeft'],
+			paddingTop: $topElement.style['paddingTop'],
+			paddingRight: $topElement.style['paddingRight'],
+			paddingBottom: $topElement.style['paddingBottom'],
+			paddingLeft: $topElement.style['paddingLeft'],
+			borderWidth: $topElement.style['borderWidth'],
+			borderColor: $topElement.style['borderColor'] ? rgbToHex($topElement.style['borderColor']) : '#FFFFFF',
+			backgroundColor: $topElement.style['backgroundColor'] ? rgbToHex($topElement.style['backgroundColor']) : '#FFFFFF',
+		}
+		console.log(options)
+		this.createPanel(options)
 	}
 	/**
 	 * 创建 panel
 	 * @param text 文本
 	 * @param link 链接
 	 */
-	private createPanel(): void {
-		const conf = createPanelConf(this.editor)
+	private createPanel(options: paragraphOptions): void {
+		const conf = createPanelConf(this.editor, options)
 		const panel = new Panel(this, conf)
 		panel.create()
 	}

@@ -1,19 +1,6 @@
 import { DomElement } from '../../utils/dom-core'
 import Editor from '../../editor/index'
-
-class paragraphOptions extends Object {
-  public marginTop: string | null | undefined;
-  public marginRight: string | null | undefined;
-  public marginBottom: string | null | undefined;
-  public marginLeft: string | null | undefined;
-  public paddingTop: string | null | undefined;
-  public paddingRight: string | null | undefined;
-  public paddingBottom: string | null | undefined;
-  public paddingLeft: string | null | undefined;
-  public borderWidth: string | null | undefined;
-  public borderColor: string | null | undefined;
-  public backgroundColor: string | null | undefined;
-}
+import paragraphOptions from './paragraphOptions'
 
 function operateElement($node: DomElement, options: paragraphOptions, editor: Editor): void {
   const $elem = $node.getNodeTop(editor)
@@ -33,6 +20,11 @@ function operateElement($node: DomElement, options: paragraphOptions, editor: Ed
       .css('border-width', options.borderWidth || '')
       .css('border-color', options.borderColor || '')
       .css('background-color', options.backgroundColor || '')
+    if (options.borderWidth) {
+      $elem.css('border-style', 'solid')
+    } else {
+      $elem.css('border-style', '')
+    }
   }
 }
 

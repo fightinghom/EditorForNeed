@@ -7,7 +7,8 @@ import Editor from '../../editor/index'
 import { getRandom } from '../../utils/util'
 import operateElement from './operate-element'
 import { PanelConf } from '../menu-constructors/Panel'
-export default function (editor: Editor): PanelConf {
+import paragraphOptions from './paragraphOptions'
+export default function (editor: Editor, options: paragraphOptions): PanelConf {
 	// panel 中需要用到的id
 	// 外边距
 	const mtId = getRandom('margin-top-input')
@@ -26,6 +27,30 @@ export default function (editor: Editor): PanelConf {
 	const bgId = getRandom('background-color-input')
 	// 确定按钮
 	const btnOkId = getRandom('ok-button')
+	const btnResetId = getRandom('reset-button')
+
+	function toOperateElement(type: string) {
+		editor.selection.restoreSelection()
+		const $selectionElem = editor.selection.getSelectionRangeTopNodes()
+		const options = {
+			marginTop: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(mtId)).value,
+			marginRight: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(mrId)).value,
+			marginBottom: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(mbId)).value,
+			marginLeft: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(mlId)).value,
+			paddingTop: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(ptId)).value,
+			paddingRight: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(prId)).value,
+			paddingBottom: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(pbId)).value,
+			paddingLeft: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(plId)).value,
+			borderWidth: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(bwId)).value,
+			borderColor: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(bcId)).value,
+			backgroundColor: type === 'reset' ? '' : (<HTMLInputElement>document.getElementById(bgId)).value,
+		}
+		if ($selectionElem.length > 0) {
+			$selectionElem.forEach((item: any) => {
+				operateElement(item, options, editor)
+			})
+		}
+	}
 
 	const conf = {
 		width: 380,
@@ -46,7 +71,7 @@ export default function (editor: Editor): PanelConf {
 											id="${mtId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.marginTop}">
 										</span>
 										<span>
 											右
@@ -54,7 +79,7 @@ export default function (editor: Editor): PanelConf {
 											id="${mrId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.marginRight}">
 										</span>
 										<span>
 											下
@@ -62,7 +87,7 @@ export default function (editor: Editor): PanelConf {
 											id="${mbId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.marginBottom}">
 										</span>
 										<span>
 											左
@@ -70,7 +95,7 @@ export default function (editor: Editor): PanelConf {
 											id="${mlId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.marginLeft}">
 										</span>
 								</div>
 								<div class="w-e-flex w-e-mt10">
@@ -81,7 +106,7 @@ export default function (editor: Editor): PanelConf {
 											id="${ptId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.paddingTop}">
 										</span>
 										<span>
 											右
@@ -89,7 +114,7 @@ export default function (editor: Editor): PanelConf {
 											id="${prId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.paddingRight}">
 										</span>
 										<span>
 											下
@@ -97,7 +122,7 @@ export default function (editor: Editor): PanelConf {
 											id="${pbId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.paddingBottom}">
 										</span>
 										<span>
 											左
@@ -105,7 +130,7 @@ export default function (editor: Editor): PanelConf {
 											id="${plId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.paddingLeft}">
 										</span>
 								</div>
 								<div class="w-e-flex w-e-mt10">
@@ -116,7 +141,7 @@ export default function (editor: Editor): PanelConf {
 											id="${bwId}"
 											type="text"
 											class="w-e-w50"
-											value="">
+											value="${options.borderWidth}">
 										</span>
 										<span>
 											颜色
@@ -124,7 +149,7 @@ export default function (editor: Editor): PanelConf {
 											id="${bcId}"
 											type="color"
 											class="w-e-w50"
-											value="">
+											value="${options.borderColor}">
 										</span>
 								</div>
 								<div class="w-e-flex w-e-mt10">
@@ -134,11 +159,12 @@ export default function (editor: Editor): PanelConf {
 											id="${bgId}"
 											type="color"
 											class="w-e-w50"
-											value="">
+											value="${options.backgroundColor}">
 										</span>
 								</div>
 								<div class="w-e-button-container">
-									<button id="${btnOkId}" type="button" class="right"> 确定 </button>
+								<button id="${btnOkId}" type="button" class="right"> 确定 </button>
+									<button id="${btnResetId}" type="button" class="right"> 重置 </button>
                 </div>
               </div>`,
 				// 事件绑定
@@ -147,28 +173,17 @@ export default function (editor: Editor): PanelConf {
 						selector: '#' + btnOkId,
 						type: 'click',
 						fn: () => {
-							editor.selection.restoreSelection()
-							const $selectionElem = editor.selection.getSelectionRangeTopNodes()
-							const options = {
-								marginTop: document.getElementById(mtId)?.nodeValue,
-								marginRight: document.getElementById(mrId)?.nodeValue,
-								marginBottom: document.getElementById(mbId)?.nodeValue,
-								marginLeft: document.getElementById(mlId)?.nodeValue,
-								paddingTop: document.getElementById(ptId)?.nodeValue,
-								paddingRight: document.getElementById(prId)?.nodeValue,
-								paddingBottom: document.getElementById(pbId)?.nodeValue,
-								paddingLeft: document.getElementById(plId)?.nodeValue,
-								borderWidth: document.getElementById(bwId)?.nodeValue,
-								borderColor: document.getElementById(bcId)?.nodeValue,
-								backgroundColor: document.getElementById(bgId)?.nodeValue,
-							}
-							console.log('options', options)
-							if ($selectionElem.length > 0) {
-								$selectionElem.forEach((item: any) => {
-									operateElement(item, options, editor)
-								})
-							}
+							toOperateElement('')
+							return true
 						},
+					},
+					{
+						selector: '#' + btnResetId,
+						type: 'click',
+						fn: () => {
+							toOperateElement('reset')
+							return true
+						}
 					},
 				],
 			}, // tab end

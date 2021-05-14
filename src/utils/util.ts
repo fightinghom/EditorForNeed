@@ -112,7 +112,7 @@ export function forEach<T extends unknown[] | Obj | ArrObj>(
  * @param fakeArr 类数组
  * @param fn 回调函数
  */
-export function arrForEach<T extends { length: number; [key: number]: unknown }>(
+export function arrForEach<T extends { length: number;[key: number]: unknown }>(
 	fakeArr: T,
 	fn: (this: T, item: T[number], index: number) => boolean | unknown
 ): void {
@@ -236,4 +236,16 @@ export function hexToRgb(hex: string) {
 	const b = colors[3]
 
 	return `rgb(${r}, ${g}, ${b})`
+}
+
+/**
+ * rgb color 转换为Hex
+ * @param rgb string
+ */
+export function rgbToHex(rgb: string) {
+	const colors = rgb.split(/rgb\(|, +|\)/).filter((item) => item)
+	const r = Number(colors[0]).toString(16)
+	const g = Number(colors[1]).toString(16)
+	const b = Number(colors[2]).toString(16)
+	return `#${r}${g}${b}`
 }
