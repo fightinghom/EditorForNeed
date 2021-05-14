@@ -12,16 +12,19 @@ function operateElement($node: DomElement, options: paragraphOptions, editor: Ed
   // ----------------------增加对H标签的过滤 yanghao----------------------------
   const regH = /^H\d$/i
   if (reg.test($elem.getNodeName()) || regH.test($elem.getNodeName())) {
+    const isIE = navigator.userAgent.indexOf('Trident') > 0
+    const emptyValue = isIE ? '0px' : ''
+    console.log(options)
     $elem
-      .css('margin-top', options.marginTop || '')
-      .css('margin-right', options.marginRight || '')
-      .css('margin-bottom', options.marginBottom || '')
-      .css('margin-left', options.marginLeft || '')
-      .css('padding-top', options.paddingTop || '')
-      .css('padding-right', options.paddingRight || '')
-      .css('padding-bottom', options.paddingBottom || '')
-      .css('padding-left', options.paddingLeft || '')
-      .css('border-width', options.borderWidth || '')
+      .css('margin-top', options.marginTop || emptyValue)
+      .css('margin-right', options.marginRight || emptyValue)
+      .css('margin-bottom', options.marginBottom || emptyValue)
+      .css('margin-left', options.marginLeft || emptyValue)
+      .css('padding-top', options.paddingTop || emptyValue)
+      .css('padding-right', options.paddingRight || emptyValue)
+      .css('padding-bottom', options.paddingBottom || emptyValue)
+      .css('padding-left', options.paddingLeft || emptyValue)
+      .css('border-width', options.borderWidth || emptyValue)
       .css('border-color', options.borderColor || '')
       .css('background-color', options.backgroundColor || '')
     if (options.borderWidth) {

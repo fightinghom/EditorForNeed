@@ -15,6 +15,9 @@ import Editor from './editor/index'
 
 export * from './menus/menu-constructors/index'
 
+import Promise from 'es6-promise'
+Promise.polyfill()
+
 // 检验是否浏览器环境
 try {
 	document
