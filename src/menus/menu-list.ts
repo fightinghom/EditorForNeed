@@ -28,6 +28,8 @@ import Code from './code'
 import SplitLine from './split-line/index'
 import Todo from './todo'
 import Paragraph from './paragraph'
+import Sub from './subscript'
+import Sup from './superscript'
 
 export type MenuListType = {
 	[key: string]: any
@@ -58,5 +60,7 @@ export default {
 	code: Code,
 	splitLine: SplitLine,
 	todo: Todo,
-	paragraph: Paragraph
+	paragraph: Paragraph,
+	sub: Sub,
+	sup: Sup,
 }

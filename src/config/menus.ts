@@ -53,6 +53,8 @@ export default {
 		'italic',
 		'underline',
 		'strikeThrough',
+		'sup',
+		'sub',
 		'indent',
 		'lineHeight',
 		'foreColor',
