@@ -15,7 +15,7 @@ import { rgbToHex } from '../../utils/util'
 
 class Paragraph extends PanelMenu implements MenuActive {
 	constructor(editor: Editor) {
-		const $elem = $('<div class="w-e-menu" data-title="段落">段落</div>')
+		const $elem = $('<div class="w-e-menu" data-title="段落"><span style="font-weight: bold;font-size: 20px">P</span></div>')
 		super($elem, editor)
 	}
 	public clickHandler(): void {

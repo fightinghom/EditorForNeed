@@ -11,7 +11,7 @@ class Sup extends BtnMenu implements MenuActive {
   constructor(editor: Editor) {
     const $elem = $(
       `<div class="w-e-menu" data-title="上标">
-      <span>X<sup>2</sup></span>
+      <span style="font-weight: bold;">X<sup>2</sup></span>
              </div>`
     )
     super($elem, editor)
