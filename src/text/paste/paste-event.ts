@@ -57,6 +57,13 @@ export function getPasteHtml(
 	// 剔除多余的标签、属性
 	pasteHtml = parseHtml(pasteHtml, filterStyle, ignoreImg)
 
+	// 去掉section标签
+	while (pasteHtml.indexOf('<section>') >= 0) {
+		pasteHtml = pasteHtml.replace('<section>', '')
+	}
+	while (pasteHtml.indexOf('</section>') >= 0) {
+		pasteHtml = pasteHtml.replace('</section>', '')
+	}
 	return pasteHtml
 }
 
