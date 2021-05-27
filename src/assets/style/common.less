@@ -63,3 +63,24 @@
     padding-left: 10px;
     text-align: left;
 }
+
+.w-e-clear-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: relative;
+}
+.w-e-clear-icon::before, .w-e-clear-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: calc(50% - 1px);
+    height: 2px;
+    background: #000;
+}
+.w-e-clear-icon::after {
+    transform: rotateZ(45deg);
+}
+.w-e-clear-icon::before {
+    transform: rotateZ(-45deg);
+}

@@ -33,6 +33,9 @@ class BackColor extends DropListMenu implements MenuActive {
 			},
 		}
 		colorListConf.list.push({
+			$elem: $(`<i class="w-e-clear-icon"></i>`),
+			value: '',
+		}, {
 			$elem: $(''),
 			value: 'cus',
 		})
@@ -63,8 +66,7 @@ class BackColor extends DropListMenu implements MenuActive {
 			// 插入空白选区
 			editor.selection.createEmptyRange()
 		}
-
-		editor.cmd.do('backColor', value)
+		editor.cmd.do('backColor', value || 'transparent')
 
 		if (isEmptySelection) {
 			// 需要将选区范围折叠起来
