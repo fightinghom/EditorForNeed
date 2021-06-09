@@ -32,6 +32,7 @@
         editor.config.onblur = function (newHtml) {
             console.log('onblur', newHtml)
         }
+        editor.config.placeholder = '请输入...'
         // editor.config.onfocus = function (newHtml) {
         //     console.log('onfocus', newHtml)
         // }
@@ -39,6 +40,11 @@
         //     '宋体',
         //     '微软雅黑',
         // ]
+
+        // 这行代码用来测试不同屏幕宽度，panel菜单的位置
+        // editor.config.menus = [
+        //     'image'
+        // ] 
 
         editor.config.showFullScreen = true
         editor.create()

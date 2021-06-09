@@ -40,47 +40,47 @@ const catalogHtml = `<h1>标题一</h1>
 let editor: Editor
 let testId = ''
 describe('Editor catalog', () => {
-	beforeEach(() => {
-		const toolbar = document.createElement('div')
-		toolbar.id = 'toolbar'
-		toolbar.innerHTML = catalogHtml
+    beforeEach(() => {
+        const toolbar = document.createElement('div')
+        toolbar.id = 'toolbar'
+        toolbar.innerHTML = catalogHtml
 
-		document.body.appendChild(toolbar)
+        document.body.appendChild(toolbar)
 
-		const catalogContainer = document.createElement('div')
-		catalogContainer.id = 'catalogContainer'
-		document.body.appendChild(catalogContainer)
+        const catalogContainer = document.createElement('div')
+        catalogContainer.id = 'catalogContainer'
+        document.body.appendChild(catalogContainer)
 
-		editor = new Editor('#toolbar')
+        editor = new Editor('#toolbar')
 
-		editor.config.onCatalogChange = function (arr: TCatalog[]) {
-			const lastItem = arr[arr.length - 1]
-			const box = document.getElementById('catalogContainer')
+        editor.config.onCatalogChange = function (arr: TCatalog[]) {
+            const lastItem = arr[arr.length - 1]
+            const box = document.getElementById('catalogContainer')
 
-			if (box == null) return
+            if (box == null) return
 
-			const a = document.createElement('a')
-			a.href = 'javascript:void(0)'
-			a.innerText = lastItem.text
-			testId = lastItem.id
-			a.id = lastItem.id
-			box.appendChild(a)
-		}
+            const a = document.createElement('a')
+            a.href = 'javascript:void(0)'
+            a.innerText = lastItem.text
+            testId = lastItem.id
+            a.id = lastItem.id
+            box.appendChild(a)
+        }
 
-		editor.create()
-	})
+        editor.create()
+    })
 
-	test('能滚动到指定的锚点', done => {
-		expect.assertions(1)
+    test('能滚动到指定的锚点', done => {
+        expect.assertions(1)
 
-		const a = $(`${testId}`)
+        const a = $(`${testId}`)
 
-		expect(a).not.toBeNull()
+        expect(a).not.toBeNull()
 
-		try {
-			scrollToHead(editor, testId)
-		} catch (err) {
-			done()
-		}
-	})
+        try {
+            scrollToHead(editor, testId)
+        } catch (err) {
+            done()
+        }
+    })
 })

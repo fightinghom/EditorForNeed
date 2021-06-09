@@ -9,13 +9,13 @@ const CommonConf = require('./webpack.common')
 const { distPath } = require('./myPath')
 
 module.exports = smart(CommonConf, {
-	mode: 'development',
-	output: {
-		filename: '[name].js',
-		path: distPath,
-		library: 'wangEditor',
-		libraryTarget: 'umd',
-		libraryExport: 'default',
-	},
-	devtool: 'eval-source-map',
+    mode: 'development',
+    output: {
+        filename: '[name].js',
+        path: distPath,
+        library: 'wangEditor',
+        libraryTarget: 'umd',
+        libraryExport: 'default',
+    },
+    devtool: 'eval-source-map',
 })

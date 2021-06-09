@@ -17,53 +17,57 @@ const lengthRegex = /^(\d+)(\w+)$/
 const percentRegex = /^(\d+)%$/
 
 function parseIndentation(editor: Editor): IndentationOptions {
-  const { indentation } = editor.config
+    const { indentation } = editor.config
 
-  if (typeof indentation === 'string') {
-    if (lengthRegex.test(indentation)) {
-      const [value, unit] = indentation.trim().match(lengthRegex)!.slice(1, 3)
-      return {
-        value: Number(value),
-        unit,
-      }
-    } else if (percentRegex.test(indentation)) {
-      return {
-        value: Number(indentation.trim().match(percentRegex)![1]),
-        unit: '%',
-      }
+    if (typeof indentation === 'string') {
+        if (lengthRegex.test(indentation)) {
+            const [value, unit] = indentation.trim().match(lengthRegex)!.slice(1, 3)
+            return {
+                value: Number(value),
+                unit,
+            }
+        } else if (percentRegex.test(indentation)) {
+            return {
+                value: Number(indentation.trim().match(percentRegex)![1]),
+                unit: '%',
+            }
+        }
+    } else if (indentation.value !== void 0 && indentation.unit) {
+        return indentation
     }
-  } else if (indentation.value !== void 0 && indentation.unit) {
-    return indentation
-  }
 
-  return {
-    value: 2,
-    unit: 'em',
-  }
+    return {
+        value: 2,
+        unit: 'em',
+    }
 }
 
 function operateElement($node: DomElement, type: String, editor: Editor): void {
-  const $elem = $node.getNodeTop(editor)
-  const reg = /^P$/i
-  // ----------------------增加对H,UL,OL,DIV标签的过滤 yanghao----------------------------
-  const regH = /^H\d$/i
-  const regUl = /^UL$/i
-  const regOl = /^OL$/i
-  const regDiv = /^DIV$/i
-  if (reg.test($elem.getNodeName()) || regH.test($elem.getNodeName()) || regDiv.test($elem.getNodeName())) {
-    // ------------------------------------------------------------------------
-    if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
-    else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
-    // ---------------------- 增加/减少首行缩进 yanghao --------------------------
-    else if (type === 'flincrease') increaseIndentSpan($elem, parseIndentation(editor))
-    else if (type === 'fldecrease') decreaseIndentSpan($elem, parseIndentation(editor))
+    const $elem = $node.getNodeTop(editor)
+    const reg = /^P$/i
+    // ----------------------增加对H,UL,OL,DIV标签的过滤 yanghao----------------------------
+    const regH = /^H\d$/i
+    const regUl = /^UL$/i
+    const regOl = /^OL$/i
+    const regDiv = /^DIV$/i
+    if (
+        reg.test($elem.getNodeName()) ||
+        regH.test($elem.getNodeName()) ||
+        regDiv.test($elem.getNodeName())
+    ) {
+        // ------------------------------------------------------------------------
+        if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
+        else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
+        // ---------------------- 增加/减少首行缩进 yanghao --------------------------
+        else if (type === 'flincrease') increaseIndentSpan($elem, parseIndentation(editor))
+        else if (type === 'fldecrease') decreaseIndentSpan($elem, parseIndentation(editor))
+        // ---------------------------------------------------------------------
+        // -----------------------对UL、OL只执行段落缩进--------------------------
+    } else if (regUl.test($elem.getNodeName()) || regOl.test($elem.getNodeName())) {
+        if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
+        else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
+    }
     // ---------------------------------------------------------------------
-    // -----------------------对UL、OL只执行段落缩进--------------------------
-  } else if (regUl.test($elem.getNodeName()) || regOl.test($elem.getNodeName())) {
-    if (type === 'increase') increaseIndentStyle($elem, parseIndentation(editor))
-    else if (type === 'decrease') decreaseIndentStyle($elem, parseIndentation(editor))
-  }
-  // ---------------------------------------------------------------------
 }
 
 export default operateElement

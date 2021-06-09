@@ -21,11 +21,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  indent: ['tab'],
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'no-unused-vars': 0,
-    "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
-    "indent": ["error", 2]
+    "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }]
   },
 }

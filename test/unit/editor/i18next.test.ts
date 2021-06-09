@@ -11,11 +11,11 @@ import Editor from '../../../src/editor'
 let editor: Editor
 
 test('国际化 英文', () => {
-	editor = createEditor(document, 'div1') // 赋值全局变量
-	editor.i18next = i18next
-	editor.config.lang = 'en'
-	i18nextInit(editor)
-	expect(editor.i18next.t('插入')).toBe('insert')
-	expect(editor.i18next.t('menus.dropListMenu.设置标题')).toBe('title')
-	expect(editor.i18next.t('menus.dropListMenu.head.正文')).toBe('text')
+    editor = createEditor(document, 'div1') // 赋值全局变量
+    editor.i18next = i18next
+    editor.config.lang = 'en'
+    i18nextInit(editor)
+    expect(editor.i18next.t('插入')).toBe('insert')
+    expect(editor.i18next.t('menus.dropListMenu.设置标题')).toBe('title')
+    expect(editor.i18next.t('menus.dropListMenu.head.正文')).toBe('text')
 })

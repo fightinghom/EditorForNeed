@@ -11,8 +11,8 @@ import bindTooltipEvent from './tooltip-event'
  * @param editor 编辑器实例
  */
 function bindEvent(editor: Editor) {
-	// tooltip 事件
-	bindTooltipEvent(editor)
+    // tooltip 事件
+    bindTooltipEvent(editor)
 }
 
 export default bindEvent

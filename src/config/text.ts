@@ -4,9 +4,9 @@
  */
 
 export default {
-	focus: true,
-	height: 300,
-	placeholder: '请输入正文',
-	zIndexFullScreen: 10002,
-	showFullScreen: true,
+    focus: true,
+    height: 300,
+    placeholder: '请输入正文',
+    zIndexFullScreen: 10002,
+    showFullScreen: true,
 }

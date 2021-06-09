@@ -13,57 +13,57 @@ let splitLineMenu: SplitLine
 let id = 1
 
 describe('split-line menu', () => {
-	beforeEach(() => {
-		editor = createEditor(document, `div${id++}`)
-		splitLineMenu = getMenuInstance(editor, SplitLine)
-	})
+    beforeEach(() => {
+        editor = createEditor(document, `div${id++}`)
+        splitLineMenu = getMenuInstance(editor, SplitLine)
+    })
 
-	test('初始化编辑器默认会创建 split-line 菜单', () => {
-		expect(splitLineMenu).not.toBeNull()
-	})
+    test('初始化编辑器默认会创建 split-line 菜单', () => {
+        expect(splitLineMenu).not.toBeNull()
+    })
 
-	test('点击分割线菜单会创建分割线', () => {
-		mockCommand(document)
+    test('点击分割线菜单会创建分割线', () => {
+        mockCommand(document)
 
-		splitLineMenu.clickHandler()
+        splitLineMenu.clickHandler()
 
-		expect((editor.txt.html() as string).indexOf('<hr/>')).toBeGreaterThanOrEqual(0)
-	})
+        expect((editor.txt.html() as string).indexOf('<hr/>')).toBeGreaterThanOrEqual(0)
+    })
 
-	test('执行 splitLineEvents 里面的钩子函数会展示 tooltip 菜单，点击其它地方会隐藏tooptip', () => {
-		mockCommand(document)
+    test('执行 splitLineEvents 里面的钩子函数会展示 tooltip 菜单，点击其它地方会隐藏tooptip', () => {
+        mockCommand(document)
 
-		editor.txt.eventHooks.splitLineEvents.forEach(fn => {
-			fn(splitLineMenu.$elem)
-		})
+        editor.txt.eventHooks.splitLineEvents.forEach(fn => {
+            fn(splitLineMenu.$elem)
+        })
 
-		const tooltip1 = $('.w-e-tooltip')
+        const tooltip1 = $('.w-e-tooltip')
 
-		expect(tooltip1.elems[0]).not.toBeUndefined()
+        expect(tooltip1.elems[0]).not.toBeUndefined()
 
-		editor.$textElem.elems[0].click()
+        editor.$textElem.elems[0].click()
 
-		const tooltip2 = $('.w-e-tooltip')
-		expect(tooltip2.elems[0]).toBeUndefined()
-	})
+        const tooltip2 = $('.w-e-tooltip')
+        expect(tooltip2.elems[0]).toBeUndefined()
+    })
 
-	test('执行 splitLineEvents 里面的钩子函数会展示 tooltip 菜单，点击tooltip删除按钮会移除分隔线', () => {
-		mockCommand(document)
+    test('执行 splitLineEvents 里面的钩子函数会展示 tooltip 菜单，点击tooltip删除按钮会移除分隔线', () => {
+        mockCommand(document)
 
-		splitLineMenu.clickHandler()
+        splitLineMenu.clickHandler()
 
-		expect((editor.txt.html() as string).indexOf('<hr/>')).toBeGreaterThanOrEqual(0)
+        expect((editor.txt.html() as string).indexOf('<hr/>')).toBeGreaterThanOrEqual(0)
 
-		editor.txt.eventHooks.splitLineEvents.forEach(fn => {
-			fn(splitLineMenu.$elem)
-		})
+        editor.txt.eventHooks.splitLineEvents.forEach(fn => {
+            fn(splitLineMenu.$elem)
+        })
 
-		const tooltip = $('.w-e-tooltip')
-		expect(tooltip.elems[0]).not.toBeUndefined()
+        const tooltip = $('.w-e-tooltip')
+        expect(tooltip.elems[0]).not.toBeUndefined()
 
-		const deleteSpan = tooltip.find('.w-e-tooltip-item-wrapper span')
-		deleteSpan.elems[0].click()
+        const deleteSpan = tooltip.find('.w-e-tooltip-item-wrapper span')
+        deleteSpan.elems[0].click()
 
-		expect(document.execCommand).toBeCalledWith('delete', false, undefined)
-	})
+        expect(document.execCommand).toBeCalledWith('delete', false, undefined)
+    })
 })

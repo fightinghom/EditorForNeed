@@ -12,9 +12,9 @@ import bindEventKeyboardEvent from './keyboard'
  * @param editor 编辑器实例
  */
 function bindEvent(editor: Editor): void {
-	//Tooltip
-	bindTooltipVideo(editor)
-	bindEventKeyboardEvent(editor)
+    //Tooltip
+    bindTooltipVideo(editor)
+    bindEventKeyboardEvent(editor)
 }
 
 export default bindEvent

@@ -11,10 +11,12 @@ import Editor from '../index'
  * @param id 标题锚点id
  */
 const scrollToHead = (editor: Editor, id: string) => {
-	const $textElem = editor.$textElem
-	const $targetHead = $textElem.find(`[id='${id}']`)
-	const targetTop = $targetHead.getOffsetData().top
-	$textElem.scrollTop(targetTop)
+    const $textElem = editor.isEnable
+        ? editor.$textElem
+        : editor.$textContainerElem.find('.w-e-content-mantle')
+    const $targetHead = $textElem.find(`[id='${id}']`)
+    const targetTop = $targetHead.getOffsetData().top
+    $textElem.scrollTop(targetTop)
 }
 
 export default scrollToHead

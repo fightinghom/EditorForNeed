@@ -14,18 +14,18 @@ import bindTooltipImg from './tooltip-event'
  * @param editor 编辑器实例
  */
 function bindEvent(editor: Editor): void {
-	// 粘贴图片
-	bindPasteImg(editor)
+    // 粘贴图片
+    bindPasteImg(editor)
 
-	// 拖拽图片
-	bindDropImg(editor)
+    // 拖拽图片
+    bindDropImg(editor)
 
-	// 可再扩展其他事件...如图片 tooltip 等
-	// 拖拽图片尺寸
-	bindDragImgSize(editor)
+    // 可再扩展其他事件...如图片 tooltip 等
+    // 拖拽图片尺寸
+    bindDragImgSize(editor)
 
-	//Tooltip
-	bindTooltipImg(editor)
+    //Tooltip
+    bindTooltipImg(editor)
 }
 
 export default bindEvent

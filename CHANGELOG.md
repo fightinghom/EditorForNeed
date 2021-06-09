@@ -1,3 +1,60 @@
+## [4.7.2](https://github.com/wangeditor-team/wangEditor/compare/v4.7.1...v4.7.2) (2021-06-03)
+
+
+### Bug Fixes
+
+* 禁修复多行插入链接造成页面卡死,止多行插入链链接 ([110b37a](https://github.com/wangeditor-team/wangEditor/commit/110b37a8bb3b6bd5d87e1d831c8dab6f52e2b6df))
+* 设置字体大小和颜色时，光标跳到行首 ([8fc7e04](https://github.com/wangeditor-team/wangEditor/commit/8fc7e04272ab222416e2cbfbaa57eb2565a8f87a))
+* 修复给标题加超链接的问题 ([0d7a05e](https://github.com/wangeditor-team/wangEditor/commit/0d7a05e8c922bc48dc655bee90b8192a816057f9))
+* 修复删除全部内容后EMPTY_P前有个空格 ([1811f8c](https://github.com/wangeditor-team/wangEditor/commit/1811f8c417f8466df5d458a6c215fad1e4b2b7c3))
+* ts 构建错误 ([4603677](https://github.com/wangeditor-team/wangEditor/commit/46036774c73f909dae99c950b0ffcc67f7414b9f))
+
+## [4.7.1](https://github.com/wangeditor-team/wangEditor/compare/v4.7.0...v4.7.1) (2021-05-20)
+
+
+### Bug Fixes
+
+* 设置/取消表头不删除第一行 ([d9fd913](https://github.com/wangeditor-team/wangEditor/commit/d9fd9139a2943b87193e6f37266fde94cbddab8e))
+* 文本删完后存在的图片会消失 ([5b14868](https://github.com/wangeditor-team/wangEditor/commit/5b14868cc5ef2534476b9f81b35178108cf74b81))
+* indent 缩进时, 增加对 head 的处理 ([8d506e4](https://github.com/wangeditor-team/wangEditor/commit/8d506e43afa016dcb7d618cbbf4c99658af0c670))
+
+# [4.7.0](https://github.com/wangeditor-team/wangEditor/compare/v4.6.17...v4.7.0) (2021-05-13)
+
+
+### Bug Fixes
+
+* 全选删除表格内容,表格外的内容会进入表格 ([33aae89](https://github.com/wangeditor-team/wangEditor/commit/33aae8924f965cb412e76fb488baa84521a11ff2))
+* 无法粘贴从qq复制过来的文本 ([fc88652](https://github.com/wangeditor-team/wangEditor/commit/fc88652aa0b2da381365b9aebde16a8ed6082f9e))
+* 修复禁用状态下scroll-to-head功能失效 ([79d1326](https://github.com/wangeditor-team/wangEditor/commit/79d13267cb4616e1df88259477c3dd053b1de4e9))
+* 修复ie11下 设置行高无效、多行无效和内容消失 ([b74f787](https://github.com/wangeditor-team/wangEditor/commit/b74f78731ec62f76a80ef00991cfa788c20830d3))
+* 修复ie11序列功能无效的bug ([b4ecdbd](https://github.com/wangeditor-team/wangEditor/commit/b4ecdbd497bbc26a14032afedc0f9b21aad84954))
+* 修复panel菜单position位置的问题 ([c66fb8b](https://github.com/wangeditor-team/wangEditor/commit/c66fb8b03623b3580d03bfe1f60e3ea266125a19))
+
+
+### Features
+
+* 插件注册和初始化 ([00326b6](https://github.com/wangeditor-team/wangEditor/commit/00326b60b83f1f0c2a0299182632479a88907a31))
+
+## [4.6.17](https://github.com/wangeditor-team/wangEditor/compare/v4.6.16...v4.6.17) (2021-04-29)
+
+
+### Bug Fixes
+
+* 低版本谷歌粘贴图片报错 ([46dc441](https://github.com/wangeditor-team/wangEditor/commit/46dc44112067a44e555a2592a6827be5d3c8602b))
+* 解决全选后删除光标停留触发控制error的bug ([ad61531](https://github.com/wangeditor-team/wangEditor/commit/ad61531d1dd13280b883a0b23c9839098c8dc1d3))
+* 修复默认todo不触发change的问题 ([08696c9](https://github.com/wangeditor-team/wangEditor/commit/08696c9e37277be9adbe17d3b0a42ab51d683c42))
+* 修复全选删除文本无法删除干净的问题 ([cb6a9c9](https://github.com/wangeditor-team/wangEditor/commit/cb6a9c960e80488f2e2fcf6fb7abc75fe4123642))
+* 修复图片插入后修改样式后的光标位置 ([00539db](https://github.com/wangeditor-team/wangEditor/commit/00539db4cad2e5b2a3fa2902485b96ebcc2184e9))
+* 修复placeholder中不能设置.的问题 ([e7aaf2d](https://github.com/wangeditor-team/wangEditor/commit/e7aaf2d764f2d5ac154bbb814e56b5195f839d23))
+* lint ([c3e93eb](https://github.com/wangeditor-team/wangEditor/commit/c3e93eb23698973f5c65a1150367bb0695b43dbe))
+
+
+### Performance Improvements
+
+* entrypoint from 261kb to 219kb ([809559b](https://github.com/wangeditor-team/wangEditor/commit/809559b08b8729e1f5e0d1063c0a74425a13db77))
+* entrypoint from 261kb to 219kb ([fc107b3](https://github.com/wangeditor-team/wangEditor/commit/fc107b36749db2396dcfb198dc8d5dee4b05bf50))
+* entrypoint from 261kb to 219kb ([24a6fb0](https://github.com/wangeditor-team/wangEditor/commit/24a6fb0278bec002eb407a651731536385302c09))
+
 ## [4.6.16](https://github.com/wangeditor-team/wangEditor/compare/v4.6.15...v4.6.16) (2021-04-22)
 
 
