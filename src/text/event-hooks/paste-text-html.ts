@@ -18,9 +18,12 @@ function formatHtml(val: string) {
 	let pasteText = val
 	// div 全部替换为 p 标签
 	pasteText = pasteText.replace(/<div>/gim, '<p>').replace(/<\/div>/gim, '</p>')
+	// 去除A标签保留内容
+	pasteText = pasteText.replace(/<\/?a.*?>/gim, '')
+	// section 全部替换为 p 标签
+	pasteText = pasteText.replace(/<section.*?>/gim, '<p>').replace(/<\/section>/gim, '</p>')
 	// 不允许空行，放在最后
 	pasteText = pasteText.replace(/<p><\/p>/gim, '<p><br></p>')
-	// 去除''
 	return pasteText.trim()
 }
 
@@ -136,6 +139,7 @@ function pasteTextHtml(editor: Editor, pasteEvents: Function[]) {
 				editor.cmd.do('insertHTML', `${formatHtml(pasteText)}`) // text
 			} else {
 				const html = formatHtml(pasteHtml)
+				console.log('html', html)
 				// 如果是段落，为了兼容 firefox 和 chrome差异，自定义插入
 				if (isParagraphHtml(html)) {
 					const $textEl = editor.$textElem
