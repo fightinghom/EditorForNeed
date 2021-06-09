@@ -16,28 +16,28 @@ const isAnalyzer = process.env.NODE_ENV === 'production_analyzer'
 
 const plugins = [new CleanWebpackPlugin()]
 if (isAnalyzer) {
-	plugins.push(new BundleAnalyzerPlugin())
+    plugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = smart(CommonConf, {
-	mode: 'production',
-	output: {
-		filename: '[name].min.js',
-		path: distPath,
-		library: 'wangEditor',
-		libraryTarget: 'umd',
-		libraryExport: 'default',
-	},
-	plugins,
-	devtool: 'source-map',
-	optimization: {
-		minimize: true,
-		minimizer: [
-			new UglifyPlugin({
-				parallel: true,
-				cache: true,
-				extractComments: false,
-			}),
-		],
-	},
+    mode: 'production',
+    output: {
+        filename: '[name].min.js',
+        path: distPath,
+        library: 'wangEditor',
+        libraryTarget: 'umd',
+        libraryExport: 'default',
+    },
+    plugins,
+    devtool: 'source-map',
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new UglifyPlugin({
+                parallel: true,
+                cache: true,
+                extractComments: false,
+            }),
+        ],
+    },
 })

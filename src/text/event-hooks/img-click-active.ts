@@ -12,11 +12,11 @@ import { DomElement } from '../../utils/dom-core'
  * @param imgClickEvents delete 键 up 时的 hooks
  */
 function imgClickActive(editor: Editor, imgClickEvents: Function[]) {
-	function clickFn($img: DomElement) {
-		editor.selection.createRangeByElem($img)
-		editor.selection.restoreSelection()
-	}
-	imgClickEvents.push(clickFn)
+    function clickFn($img: DomElement) {
+        editor.selection.createRangeByElem($img)
+        editor.selection.restoreSelection()
+    }
+    imgClickEvents.push(clickFn)
 }
 
 export default imgClickActive

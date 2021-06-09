@@ -13,24 +13,24 @@ import { DropListItem } from '../menu-constructors/DropList'
  * 因此,想着顺便研究实践下ts,遍创建了这样一个类
  */
 class FontStyleList {
-	private itemList: DropListItem[]
-	constructor(list: FontStyleType) {
-		this.itemList = []
-		list.forEach(fontValue => {
-			// fontValue 2种情况一种是string类型的直接value等同于font-family
-			// Object类型value为font-family name为ui视图呈现
-			const fontFamily = typeof fontValue === 'string' ? fontValue : fontValue.value
-			const fontName = typeof fontValue === 'string' ? fontValue : fontValue.name
-			this.itemList.push({
-				$elem: $(`<p style="font-family:'${fontFamily}'">${fontName}</p>`),
-				value: fontName,
-			})
-		})
-	}
+    private itemList: DropListItem[]
+    constructor(list: FontStyleType) {
+        this.itemList = []
+        list.forEach(fontValue => {
+            // fontValue 2种情况一种是string类型的直接value等同于font-family
+            // Object类型value为font-family name为ui视图呈现
+            const fontFamily = typeof fontValue === 'string' ? fontValue : fontValue.value
+            const fontName = typeof fontValue === 'string' ? fontValue : fontValue.name
+            this.itemList.push({
+                $elem: $(`<p style="font-family:'${fontFamily}'">${fontName}</p>`),
+                value: fontName,
+            })
+        })
+    }
 
-	public getItemList(): DropListItem[] {
-		return this.itemList
-	}
+    public getItemList(): DropListItem[] {
+        return this.itemList
+    }
 }
 
 export default FontStyleList

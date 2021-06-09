@@ -12,11 +12,11 @@ import bindEventJumpCodeBlock from './jump-code-block-down'
  * @param editor 编辑器实例
  */
 function bindEvent(editor: Editor) {
-	// tooltip 事件
-	bindTooltipEvent(editor)
+    // tooltip 事件
+    bindTooltipEvent(editor)
 
-	// 代码块为最后内容的跳出处理
-	bindEventJumpCodeBlock(editor)
+    // 代码块为最后内容的跳出处理
+    bindEventJumpCodeBlock(editor)
 }
 
 export default bindEvent

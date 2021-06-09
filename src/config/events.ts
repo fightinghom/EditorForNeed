@@ -6,9 +6,9 @@
 import { EMPTY_FN } from '../utils/const'
 
 export type TCatalog = {
-	tag: string
-	id: string
-	text: string
+    tag: string
+    id: string
+    text: string
 }
 
 /**
@@ -18,19 +18,19 @@ export type TCatalog = {
  * @param debugInfo debug info
  */
 function customAlert(alertInfo: string, alertType: string, debugInfo?: string): void {
-	window.alert(alertInfo)
-	if (debugInfo) {
-		console.error('wangEditor: ' + debugInfo)
-	}
+    window.alert(alertInfo)
+    if (debugInfo) {
+        console.error('wangEditor: ' + debugInfo)
+    }
 }
 
 export default {
-	onchangeTimeout: 200,
+    onchangeTimeout: 200,
 
-	onchange: null,
-	onfocus: EMPTY_FN,
-	onblur: EMPTY_FN,
+    onchange: null,
+    onfocus: EMPTY_FN,
+    onblur: EMPTY_FN,
 
-	onCatalogChange: null,
-	customAlert,
+    onCatalogChange: null,
+    customAlert,
 }

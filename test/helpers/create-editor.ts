@@ -12,7 +12,7 @@ let count = 1
  * 生成唯一的节点 id
  */
 export function selector() {
-	return `edit${count++}`
+    return `edit${count++}`
 }
 
 /**
@@ -22,38 +22,38 @@ export function selector() {
  * @param textId text id
  */
 export default function createEditor(
-	document: Document,
-	toolbarId: string,
-	textId?: string,
-	config?: any,
-	htmlStr?: string
+    document: Document,
+    toolbarId: string,
+    textId?: string,
+    config?: any,
+    htmlStr?: string
 ): Editor {
-	const toolbarElem = document.createElement('div')
-	toolbarElem.id = toolbarId
-	$('body').append($(toolbarElem))
+    const toolbarElem = document.createElement('div')
+    toolbarElem.id = toolbarId
+    $('body').append($(toolbarElem))
 
-	let editor: Editor
+    let editor: Editor
 
-	if (textId) {
-		const textElem = document.createElement('div')
-		textElem.id = textId
-		$('body').append($(textElem))
-		if (htmlStr) {
-			textElem.innerHTML = htmlStr
-		}
-		editor = new Editor(`#${toolbarId}`, `#${textId}`)
-	} else {
-		editor = new Editor(`#${toolbarId}`)
-	}
+    if (textId) {
+        const textElem = document.createElement('div')
+        textElem.id = textId
+        $('body').append($(textElem))
+        if (htmlStr) {
+            textElem.innerHTML = htmlStr
+        }
+        editor = new Editor(`#${toolbarId}`, `#${textId}`)
+    } else {
+        editor = new Editor(`#${toolbarId}`)
+    }
 
-	if (config) {
-		for (const key in config) {
-			if (Object.prototype.hasOwnProperty.call(config, key)) {
-				;(editor.config as any)[key] = config[key]
-			}
-		}
-	}
+    if (config) {
+        for (const key in config) {
+            if (Object.prototype.hasOwnProperty.call(config, key)) {
+                ;(editor.config as any)[key] = config[key]
+            }
+        }
+    }
 
-	editor.create()
-	return editor
+    editor.create()
+    return editor
 }

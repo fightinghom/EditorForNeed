@@ -12,54 +12,54 @@ export type ContainerFragment = HTMLElement | DocumentFragment
 
 // 处理类
 export type ListHandleClass =
-	| WrapListHandle
-	| JoinListHandle
-	| StartJoinListHandle
-	| EndJoinListHandle
-	| OtherListHandle
+    | WrapListHandle
+    | JoinListHandle
+    | StartJoinListHandle
+    | EndJoinListHandle
+    | OtherListHandle
 
 export enum ClassType {
-	Wrap = 'WrapListHandle',
-	Join = 'JoinListHandle',
-	StartJoin = 'StartJoinListHandle',
-	EndJoin = 'EndJoinListHandle',
-	Other = 'OtherListHandle',
+    Wrap = 'WrapListHandle',
+    Join = 'JoinListHandle',
+    StartJoin = 'StartJoinListHandle',
+    EndJoin = 'EndJoinListHandle',
+    Other = 'OtherListHandle',
 }
 
 const handle = {
-	WrapListHandle,
-	JoinListHandle,
-	StartJoinListHandle,
-	EndJoinListHandle,
-	OtherListHandle,
+    WrapListHandle,
+    JoinListHandle,
+    StartJoinListHandle,
+    EndJoinListHandle,
+    OtherListHandle,
 }
 
 export function createListHandle(
-	classType: ClassType,
-	options: HandlerListOptions,
-	range?: Range
+    classType: ClassType,
+    options: HandlerListOptions,
+    range?: Range
 ): ListHandleClass {
-	if (classType === ClassType.Other && range === undefined) {
-		throw new Error('other 类需要传入 range')
-	}
+    if (classType === ClassType.Other && range === undefined) {
+        throw new Error('other 类需要传入 range')
+    }
 
-	return classType !== ClassType.Other
-		? new handle[classType](options)
-		: new handle[classType](options, range as Range)
+    return classType !== ClassType.Other
+        ? new handle[classType](options)
+        : new handle[classType](options, range as Range)
 }
 
 /**
  * 统一执行的接口
  */
 export default class ListHandleCommand {
-	private handle: ListHandleClass
+    private handle: ListHandleClass
 
-	constructor(handle: ListHandleClass) {
-		this.handle = handle
-		this.handle.exec()
-	}
+    constructor(handle: ListHandleClass) {
+        this.handle = handle
+        this.handle.exec()
+    }
 
-	getSelectionRangeElem(): DomElement {
-		return $(this.handle.selectionRangeElem.get())
-	}
+    getSelectionRangeElem(): DomElement {
+        return $(this.handle.selectionRangeElem.get())
+    }
 }

@@ -4,5 +4,5 @@
  */
 
 export default {
-	styleWithCSS: false, // 默认 false
+    styleWithCSS: false, // 默认 false
 }

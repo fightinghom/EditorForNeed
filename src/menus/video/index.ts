@@ -12,40 +12,40 @@ import createPanelConf from './create-panel-conf'
 import bindEvent from './bind-event/index'
 
 class Video extends PanelMenu implements MenuActive {
-	constructor(editor: Editor) {
-		const $elem = $(
-			`<div class="w-e-menu" data-title="视频">
+    constructor(editor: Editor) {
+        const $elem = $(
+            `<div class="w-e-menu" data-title="视频">
                 <i class="w-e-icon-play"></i>
             </div>`
-		)
-		super($elem, editor)
+        )
+        super($elem, editor)
 
-		// 绑定事件 tootip
-		bindEvent(editor)
-	}
+        // 绑定事件 tootip
+        bindEvent(editor)
+    }
 
-	/**
-	 * 菜单点击事件
-	 */
-	public clickHandler(): void {
-		// 弹出 panel
-		this.createPanel('')
-	}
+    /**
+     * 菜单点击事件
+     */
+    public clickHandler(): void {
+        // 弹出 panel
+        this.createPanel('')
+    }
 
-	/**
-	 * 创建 panel
-	 * @param link 链接
-	 */
-	private createPanel(iframe: string): void {
-		const conf = createPanelConf(this.editor, iframe)
-		const panel = new Panel(this, conf)
-		panel.create()
-	}
+    /**
+     * 创建 panel
+     * @param link 链接
+     */
+    private createPanel(iframe: string): void {
+        const conf = createPanelConf(this.editor, iframe)
+        const panel = new Panel(this, conf)
+        panel.create()
+    }
 
-	/**
-	 * 尝试修改菜单 active 状态
-	 */
-	public tryChangeActive() {}
+    /**
+     * 尝试修改菜单 active 状态
+     */
+    public tryChangeActive() {}
 }
 
 export default Video

@@ -5,11 +5,11 @@ import $, { DomElement } from '../../utils/dom-core'
  * @param editor 编辑器实例
  */
 function createQuote($childElem: DomElement[]): DomElement {
-	const $targetElem = $(`<blockquote></blockquote>`)
-	$childElem.forEach(node => {
-		$targetElem.append(node.clone(true))
-	})
-	return $targetElem
+    const $targetElem = $(`<blockquote></blockquote>`)
+    $childElem.forEach(node => {
+        $targetElem.append(node.clone(true))
+    })
+    return $targetElem
 }
 
 export default createQuote

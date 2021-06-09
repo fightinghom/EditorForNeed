@@ -4,5 +4,5 @@
  */
 
 export default {
-	zIndex: 10000,
+    zIndex: 10000,
 }

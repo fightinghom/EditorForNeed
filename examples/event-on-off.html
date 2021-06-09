@@ -9,35 +9,44 @@
         input[type="button"] {
             cursor: pointer;
         }
+
         .container {
             width: 1000px;
             margin: 50px auto;
             display: flex;
         }
+
         .message {
             width: 40%;
             height: 100%;
         }
+
         .event-list {
             width: 60%;
         }
+
         .event {
             display: flex;
         }
-        .left, .right {
+
+        .left,
+        .right {
             height: 32px;
             margin: 15px 0 0;
         }
+
         .left {
             width: 75%;
             display: flex;
             align-items: center;
         }
+
         .right {
             width: 25%;
             display: flex;
             justify-content: space-around;
         }
+
         .item {
             padding-left: 10px;
         }
@@ -157,7 +166,7 @@
             addLog('demo2：解绑代理事件')
         })
 
-        
+
         // 代理绑定
         const agentsOn = document.querySelector('#agentsOn')
         const agentsOff = document.querySelector('#agentsOff')
@@ -201,7 +210,7 @@
             addLog('demo4：解绑代理事件')
         })
         let i = 1
-        addDom.addEventListener('click', function() {
+        addDom.addEventListener('click', function () {
             agent4.insertAdjacentHTML('afterend', `<div class="item agent4"><input type="button" value="btn ${i++}"></div>`)
         })
     </script>

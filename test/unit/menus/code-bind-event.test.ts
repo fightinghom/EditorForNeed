@@ -13,39 +13,39 @@ let editor: Editor
 let id = 1
 
 describe('code bind event', () => {
-	beforeEach(() => {
-		editor = createEditor(document, `div${id++}`)
-	})
+    beforeEach(() => {
+        editor = createEditor(document, `div${id++}`)
+    })
 
-	test('调用 createShowHideFn 返回显示和隐藏code tooltip函数', () => {
-		const fnObj = createShowHideFn(editor)
+    test('调用 createShowHideFn 返回显示和隐藏code tooltip函数', () => {
+        const fnObj = createShowHideFn(editor)
 
-		expect(fnObj.showCodeTooltip).toBeInstanceOf(Function)
-		expect(fnObj.hideCodeTooltip).toBeInstanceOf(Function)
-	})
+        expect(fnObj.showCodeTooltip).toBeInstanceOf(Function)
+        expect(fnObj.hideCodeTooltip).toBeInstanceOf(Function)
+    })
 
-	test('调用 showCodeTooltip 方法展示code tooltip', () => {
-		const fnObj = createShowHideFn(editor)
-		const codeDom = $('<div></div>')
+    test('调用 showCodeTooltip 方法展示code tooltip', () => {
+        const fnObj = createShowHideFn(editor)
+        const codeDom = $('<div></div>')
 
-		fnObj.showCodeTooltip(codeDom)
+        fnObj.showCodeTooltip(codeDom)
 
-		const tooltip = $(`#div${id - 1} .w-e-tooltip`)
-		expect(tooltip.elems[0]).not.toBeNull()
-	})
+        const tooltip = $(`#div${id - 1} .w-e-tooltip`)
+        expect(tooltip.elems[0]).not.toBeNull()
+    })
 
-	test('调用 hideCodeTooltip 方法隐藏code tooltip', () => {
-		const fnObj = createShowHideFn(editor)
-		const codeDom = $('<div></div>')
+    test('调用 hideCodeTooltip 方法隐藏code tooltip', () => {
+        const fnObj = createShowHideFn(editor)
+        const codeDom = $('<div></div>')
 
-		fnObj.showCodeTooltip(codeDom)
+        fnObj.showCodeTooltip(codeDom)
 
-		const tooltip1 = $(`#div${id - 1} .w-e-tooltip`)
-		expect(tooltip1.elems[0]).not.toBeNull()
+        const tooltip1 = $(`#div${id - 1} .w-e-tooltip`)
+        expect(tooltip1.elems[0]).not.toBeNull()
 
-		fnObj.hideCodeTooltip()
+        fnObj.hideCodeTooltip()
 
-		const tooltip2 = $(`#div${id - 1} .w-e-tooltip`)
-		expect(tooltip2.elems[0]).toBeUndefined()
-	})
+        const tooltip2 = $(`#div${id - 1} .w-e-tooltip`)
+        expect(tooltip2.elems[0]).toBeUndefined()
+    })
 })

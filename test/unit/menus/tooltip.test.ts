@@ -14,38 +14,38 @@ const $elem1 = $('<span>文字1</span>')
 const fn1 = jest.fn()
 
 test('初始化 tooltip', () => {
-	// 初始化编辑器
-	editor = createEditor(document, 'div1')
-	const $p = $('<p>一行文字</p>')
-	editor.$textElem.append($p)
+    // 初始化编辑器
+    editor = createEditor(document, 'div1')
+    const $p = $('<p>一行文字</p>')
+    editor.$textElem.append($p)
 
-	// 初始化 tooltip
-	const conf = [
-		{
-			$elem: $elem1,
-			onClick: fn1,
-		},
-		{
-			$elem: $('<span>文字2</span>'),
-			onClick: jest.fn(),
-		},
-	]
-	tooltip = new Tooltip(editor, $p, conf)
+    // 初始化 tooltip
+    const conf = [
+        {
+            $elem: $elem1,
+            onClick: fn1,
+        },
+        {
+            $elem: $('<span>文字2</span>'),
+            onClick: jest.fn(),
+        },
+    ]
+    tooltip = new Tooltip(editor, $p, conf)
 
-	expect(tooltip).not.toBeNull()
+    expect(tooltip).not.toBeNull()
 })
 
 test('点击 tooltip', () => {
-	tooltip.create()
+    tooltip.create()
 
-	$elem1.elems[0].click()
-	expect(fn1).toBeCalled()
+    $elem1.elems[0].click()
+    expect(fn1).toBeCalled()
 })
 
 test('tooltip 显示和隐藏', () => {
-	tooltip.create()
-	expect(tooltip.isShow).toBe(true)
+    tooltip.create()
+    expect(tooltip.isShow).toBe(true)
 
-	tooltip.remove()
-	expect(tooltip.isShow).toBe(false)
+    tooltip.remove()
+    expect(tooltip.isShow).toBe(false)
 })

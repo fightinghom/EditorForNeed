@@ -10,37 +10,37 @@ import { Compile } from '../type'
 import Editor from '../../../index'
 
 export default class NodeCache extends Cache<Compile[]> {
-	constructor(public editor: Editor) {
-		super(editor.config.historyMaxSize)
-	}
+    constructor(public editor: Editor) {
+        super(editor.config.historyMaxSize)
+    }
 
-	public observe() {
-		this.resetMaxSize(this.editor.config.historyMaxSize)
-	}
+    public observe() {
+        this.resetMaxSize(this.editor.config.historyMaxSize)
+    }
 
-	/**
-	 * 编译并保存数据
-	 */
-	public compile(data: MutationRecord[]) {
-		this.save(compile(data))
-		return this
-	}
+    /**
+     * 编译并保存数据
+     */
+    public compile(data: MutationRecord[]) {
+        this.save(compile(data))
+        return this
+    }
 
-	/**
-	 * 撤销
-	 */
-	public revoke() {
-		return super.revoke(data => {
-			revoke(data)
-		})
-	}
+    /**
+     * 撤销
+     */
+    public revoke() {
+        return super.revoke(data => {
+            revoke(data)
+        })
+    }
 
-	/**
-	 * 恢复
-	 */
-	public restore() {
-		return super.restore(data => {
-			restore(data)
-		})
-	}
+    /**
+     * 恢复
+     */
+    public restore() {
+        return super.restore(data => {
+            restore(data)
+        })
+    }
 }
