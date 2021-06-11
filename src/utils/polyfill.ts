@@ -3,8 +3,6 @@
  * @author wangfupeng
  */
 
-import 'babel-polyfill'
-
 if (!Element.prototype.matches) {
     Element.prototype.matches = function (s) {
         let matches: NodeListOf<Element> = this.ownerDocument.querySelectorAll(s)
