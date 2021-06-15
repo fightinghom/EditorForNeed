@@ -79,20 +79,17 @@ function insertHtml(selection: Selection, topNode: Node): string {
     let endNode = focusNode
     // 用来保存 anchorNode的非p最外层节点
     let pointerNode = anchorNode
-
     // 节点是同一个的处理
     if (anchorNode?.isEqualNode(focusNode ?? null)) {
         let innerContent = createPartHtml(topText, anchorNode, anchorPos, focusPos)
         innerContent = addContainer(TagArr, innerContent)
         return innerContent
     }
-
     // 选中开始位置节点的处理
     if (anchorNode) startContent = createPartHtml(topText, anchorNode, anchorPos ?? 0)
 
     // 结束位置节点的处理
     if (focusNode) endContent = createPartHtml(topText, focusNode, 0, focusPos)
-
     // 将指针节点位置放置到开始的节点
     if (anchorNode) {
         // 获取start的非p顶级node
@@ -102,7 +99,10 @@ function insertHtml(selection: Selection, topNode: Node): string {
         // 获取end的非p顶级node
         endNode = getTopNode(focusNode, topText)
     }
-
+    if (startNode?.isEqualNode(endNode ?? null)) {
+        let htmlString = startNode?.firstChild?.parentElement?.innerHTML
+        return makeHtmlString(startNode, htmlString ?? '')
+    }
     // 处于开始和结束节点位置之间的节点的处理
     pointerNode = startNode?.nextSibling ?? anchorNode
     while (!pointerNode?.isEqualNode(endNode ?? null)) {
@@ -114,14 +114,16 @@ function insertHtml(selection: Selection, topNode: Node): string {
             if (pointerNode)
                 middleContent = middleContent + makeHtmlString(pointerNode, htmlString ?? '')
         }
-        pointerNode = pointerNode?.nextSibling ?? pointerNode
+        if (!pointerNode?.nextSibling) {
+            break
+        }
+        pointerNode = pointerNode?.nextSibling
     }
-
     content = `${startContent}${middleContent}${endContent}`
-
+    // 去掉内容中的br，否则会生成并行的相同的链接
+    content = content.replace(/<\/?br.*?>/gim, '')
     // 增加最外层包裹标签
     content = addContainer(TagArr, content)
-
     return content
 }
 /**
