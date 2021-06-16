@@ -46,9 +46,9 @@ class CreateTable {
             colStr = ''
             for (let j = 0; j < colValue; j++) {
                 if (i === 0) {
-                    colStr = colStr + '<th></th>'
+                    colStr = colStr + '<th><br></th>'
                 } else {
-                    colStr = colStr + '<td></td>'
+                    colStr = colStr + '<td><br></td>'
                 }
             }
             rowStr = rowStr + '<tr>' + colStr + '</tr>'
@@ -57,6 +57,7 @@ class CreateTable {
             `<table border="0" width="100%" cellpadding="0" cellspacing="0"><tbody>` +
             rowStr +
             `</tbody></table>${EMPTY_P}`
+        console.log(tableDom)
         return tableDom
     }
 }

@@ -71,7 +71,7 @@ function createShowHideFn(editor: Editor) {
                     // 选中table
                     editor.selection.createRangeByElem($node)
                     editor.selection.restoreSelection()
-
+                    console.log('newdom', newdom)
                     editor.cmd.do('insertHTML', newdom)
 
                     return true
