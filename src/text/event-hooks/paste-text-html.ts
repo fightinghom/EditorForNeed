@@ -21,7 +21,7 @@ function formatHtml(val: string) {
     // 去除A标签保留内容
     pasteText = pasteText.replace(/<\/?a.*?>/gim, '')
     // section 全部替换为 p 标签
-    pasteText = pasteText.replace(/<section.*?>/gim, '<p>').replace(/<\/section>/gim, '</p>')
+    pasteText = pasteText.replace(/<section.*?>/gim, '').replace(/<\/section>/gim, '')
     // 不允许空行，放在最后
     pasteText = pasteText.replace(/<p><\/p>/gim, '<p><br></p>')
     return pasteText.trim()
