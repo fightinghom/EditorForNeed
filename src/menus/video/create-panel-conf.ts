@@ -5,7 +5,7 @@
 
 import Editor from '../../editor/index'
 import { PanelConf, PanelTabConf } from '../menu-constructors/Panel'
-import { getRandom } from '../../utils/util'
+import { getRandom, UA } from '../../utils/util'
 import $ from '../../utils/dom-core'
 import UploadVideo from './upload-video'
 import { EMPTY_P } from '../../utils/const'
@@ -25,8 +25,18 @@ export default function (editor: Editor, video: string): PanelConf {
      * @param iframe html标签
      */
     function insertVideo(video: string): void {
-        editor.cmd.do('insertHTML', video + EMPTY_P)
-
+        console.log(video)
+        if (UA.isFirefox) {
+            editor.cmd.do(
+                'insertHTML',
+                `<p data-we-video-p="true"><video src="${video}" controls="controls" style="max-width:100%"></video></p><p>&#8203</p>`
+            )
+        } else {
+            editor.cmd.do(
+                'insertHTML',
+                `<video src="${video}" controls="controls" style="max-width:100%"></video>${EMPTY_P}`
+            )
+        }
         // video添加后的回调
         editor.config.onlineVideoCallback(video)
     }
@@ -111,7 +121,7 @@ export default function (editor: Editor, video: string): PanelConf {
                         id="${inputIFrameId}" 
                         type="text" 
                         class="block" 
-                        placeholder="${editor.i18next.t('如')}：<iframe src=... ></iframe>"/>
+                        placeholder="${editor.i18next.t('如')}：https://..."/>
                     </td>
                     <div class="w-e-button-container">
                         <button type="button" id="${btnOkId}" class="right">
