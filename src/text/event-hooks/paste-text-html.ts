@@ -12,19 +12,33 @@ import { DomElement } from '../../utils/dom-core'
 /**
  * 格式化html
  * @param val 粘贴的html
- * @author liuwei
+ * @author Gavin
+ * @description
+    格式化html，需要特别注意
+    功能：
+        1. 将htmlText中的div，都替换成p标签
+        2. 将处理后的htmlText模拟先插入到真实dom中，处理P截断问题。
+
+    注意点：
+        由于P不能嵌套p，会导致标签截断，从而将<p><p>xx</p></p>这样一个结构插入到页面时，会出现很多问题，包括光标位置问题，页面凭空多很多元素的问题。
  */
 function formatHtml(val: string) {
     let pasteText = val
     // div 全部替换为 p 标签
-    pasteText = pasteText.replace(/<div>/gim, '<p>').replace(/<\/div>/gim, '</p>')
+    pasteText = pasteText.replace(/<div>/gim, '<p>').replace(/<\/div>/gim, '</p>').trim()
     // 去除A标签保留内容
     pasteText = pasteText.replace(/<\/?a.*?>/gim, '')
     // section 全部替换为 p 标签
     pasteText = pasteText.replace(/<section.*?>/gim, '').replace(/<\/section>/gim, '')
     // 不允许空行，放在最后
     pasteText = pasteText.replace(/<p><\/p>/gim, '<p><br></p>')
-    return pasteText.trim()
+
+    // 模拟插入到真实dom中
+    const tempContainer = document.createElement('div')
+
+    tempContainer.innerHTML = pasteText
+
+    return tempContainer.innerHTML.replace(/<p><\/p>/gim, '') // 将被截断的p，都替换掉
 }
 
 /**
@@ -154,16 +168,6 @@ function pasteTextHtml(editor: Editor, pasteEvents: Function[]) {
                     if (isEmptyParagraph($topElem)) {
                         $topElem.remove()
                     }
-
-                    // 当复制粘贴的内容是 段落 的时候
-                    // 这里会将光标移动到编辑区域的末端
-                    // 如果是作为重置光标来使用的，应该是将光标移动到插入的 html 的末端才对
-                    // 注释后并没有发现光标的位置不正常
-
-                    // 移动光标到编辑器最后的位置
-                    // const lastEl = $textEl.last()
-                    // if (!lastEl?.length) return
-                    // editor.selection.moveCursor(lastEl.elems[0])
                 } else {
                     // ------------------ 影响到了图片复制先注释掉 yanghao -----------------------
                     editor.cmd.do('insertHTML', html) // html

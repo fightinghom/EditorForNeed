@@ -15,29 +15,37 @@
     </p>
     <div id="div1">
         <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
-        <p>
-            <img src="http://www.wangeditor.com/imgs/logo.jpeg" />
-        </p>
     </div>
-    <button id="btn">获取html内容</button>
+
+    <div id="div2">
+        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+    </div>
 
     <script src="../dist/wangEditor.js"></script>
     <script>
         // 改为使用var声明，才能在window对象上获取到编辑器实例，方便e2e测试
         var E = window.wangEditor
         var editor = new E('#div1')
-        editor.config.uploadImgServer = 'http://106.12.198.214:3000/api/upload-img'
-
-        editor.config.onchange = function (newHtml) {
-            console.log('onchange', newHtml)
+        editor.config.onSelectionChange = function (newHtml) {
+            console.log('editor', newHtml)
         }
-
-        editor.config.showFullScreen = true
         editor.create()
-        editor.txt.html("<p>123</p><p>456</p>")
-        document.getElementById('btn').onclick = function () {
-          console.log(editor.txt.html())
-        }
+
+        // setTimeout(() => {
+        //     console.log("摧毁了")
+        //     editor.destroy()
+        // }, 3000)
+
+        // var editor2 = new E('#div2')
+        // editor2.config.onSelectionChange = function (newHtml) {
+        //     console.log('editor2', newHtml)
+        // }
+        // editor2.create()
+
+        // setTimeout(() => {
+        //     console.log("摧毁了")
+        //     editor2.destroy()
+        // }, 3000)
     </script>
 </body>
 

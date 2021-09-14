@@ -54,6 +54,9 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
         //     editor.cmd.do('insertHTML', `<a href="${link}" target="_blank">${text}</a>`)
         // }
         // ----------------------将链接的json串放到data-json属性上 yanghao-------------------------
+        // fix: 修复列表下无法设置超链接的问题(替换选中文字中的标签)
+        const subStr = new RegExp(/(<\/*ul>)|(<\/*li>)|(<\/*ol>)/g)
+        text = text.replace(subStr, '')
         if (isActive(editor)) {
             // 选区处于链接中，则选中整个菜单，再执行 insertHTML
             selectLinkElem()
@@ -133,13 +136,12 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                             placeholder="请点击此处选择链接"/>
                         </td>
                         <div class="w-e-button-container">
-														${
-                                                            !link
-                                                                ? `<button type="button" id="${btnOkId}" class="right"> ${editor.i18next.t(
-                                                                      '插入'
-                                                                  )} </button>`
-                                                                : ''
-                                                        }
+														${!link
+                        ? `<button type="button" id="${btnOkId}" class="right"> ${editor.i18next.t(
+                            '插入'
+                        )} </button>`
+                        : ''
+                    }
                             <button type="button" id="${btnDelId}" class="gray right" style="display:${delBtnDisplay}">
                                 ${editor.i18next.t('menus.panelMenus.link.取消链接')}
                             </button>
@@ -215,6 +217,7 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                             // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
                             return true
                         },
+                        bindEnter: true,
                     },
                     // 取消链接
                     {

@@ -118,6 +118,10 @@ function insertHtml(selection: Selection, topNode: Node): string {
             break
         }
         pointerNode = pointerNode?.nextSibling
+        // 解决文字和图片同一行时会触发无限循环, 到不了endNode === pointerNode条件
+        const nextPointNode = pointerNode?.nextSibling ?? pointerNode
+        if (nextPointNode === pointerNode) break
+        pointerNode = nextPointNode
     }
     content = `${startContent}${middleContent}${endContent}`
     // 去掉内容中的br，否则会生成并行的相同的链接
@@ -134,7 +138,7 @@ function getContainerTag(node: Node): Node[] {
     const topText = node.textContent ?? ''
     let tagArr = []
     while (node?.textContent === topText) {
-        if (node.nodeName !== 'P') {
+        if (node.nodeName !== 'P' && node.nodeName !== 'TABLE') {
             tagArr.push(node)
         }
         node = node.childNodes[0]

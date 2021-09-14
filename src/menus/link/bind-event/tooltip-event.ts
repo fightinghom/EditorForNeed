@@ -44,16 +44,21 @@ function createShowHideFn(editor: Editor) {
                     editor.selection.createRangeByElem($link)
                     editor.selection.restoreSelection()
 
-                    // 用文字，替换链接
-                    // const selectionText = $link.text()
-                    // editor.cmd.do('insertHTML', '<span>' + selectionText + '</span>')
-                    // ---------------------------防止其他样式被删除 yanghao--------------------------
+                    // 获取A标签的子项
+                    const $childNodes = $link.childNodes()
                     const tagA = getATag($link)
                     if (tagA) {
                         const htmlInTagA = tagA.html()
-                        editor.cmd.do('insertHTML', '<span>' + htmlInTagA + '</span>')
+                        // 如果链接是图片
+                        if ($childNodes?.getNodeName() === 'IMG') {
+                            // 插入图片
+                            editor.cmd.do('insertHTML', htmlInTagA)
+                        } else {
+                            // 用文字，替换链接
+                            editor.cmd.do('insertHTML', '<span>' + htmlInTagA + '</span>')
+                        }
+
                     }
-                    // -----------------------------------------------------------------------------
 
                     // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。
                     return true

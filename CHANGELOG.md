@@ -1,3 +1,62 @@
+## [4.7.8](https://github.com/wangeditor-team/wangEditor/compare/v4.7.7...v4.7.8) (2021-09-09)
+
+
+### Bug Fixes
+
+* 修复表格中选中文字插入链接多出table标签和chrome浏览器表格高度问题 ([325f1f6](https://github.com/wangeditor-team/wangEditor/commit/325f1f6f72d305de1ff0b5873951e88c4d40d5b5))
+
+## [4.7.7](https://github.com/wangeditor-team/wangEditor/compare/v4.7.6...v4.7.7) (2021-08-20)
+
+
+### Bug Fixes
+
+* 清空内容后-点击工具栏上插入链接的按钮，无反应 ([c1340d1](https://github.com/wangeditor-team/wangEditor/commit/c1340d17b24f9f61974bd122602cd7485c4453a2))
+* 图片添加链接直接删除防止报错 ([2ce2639](https://github.com/wangeditor-team/wangEditor/commit/2ce2639df10cf88f7b44618202136342ed683e86))
+* 无内容的情况下粘贴一段文本，粘贴后光标位于行首而不是粘贴内容的行尾 ([62d5c4a](https://github.com/wangeditor-team/wangEditor/commit/62d5c4a93f243f20f0269976432e585fbb7d39b1))
+* 修复低版本内核粘贴单张图报错 ([96f2f8d](https://github.com/wangeditor-team/wangEditor/commit/96f2f8de4915a223619d9f77902194a7e1dd3ae4))
+
+
+### Features
+
+* 修复当编辑区没内容时,上传一张图片,删除后鼠标位置的问题 ([2fec14e](https://github.com/wangeditor-team/wangEditor/commit/2fec14e6c66442d3860052a9d0869a15d86165ee))
+
+## [4.7.6](https://github.com/wangeditor-team/wangEditor/compare/v4.7.5...v4.7.6) (2021-07-30)
+
+
+### Bug Fixes
+
+* 解决全选删除后，设置引用，全屏的问题 ([514d563](https://github.com/wangeditor-team/wangEditor/commit/514d56323442685ce1a80faf911208c635daf5ab))
+* 修复列表下无法设置超链接的问题 ([00bfdb5](https://github.com/wangeditor-team/wangEditor/commit/00bfdb5bc20e00cd2d632de45a6d9c7b3a2cea67))
+
+## [4.7.5](https://github.com/wangeditor-team/wangEditor/compare/v4.7.4...v4.7.5) (2021-07-02)
+
+
+### Bug Fixes
+
+* 涉及到有插入按钮的菜单, 键盘输入enter键，也能触发事件 ([2fdef65](https://github.com/wangeditor-team/wangEditor/commit/2fdef658ca6fb22b5fc635e7c0a9310dfbcde0ec))
+* 修复ie11序列功能无效的bug ([dd8bdaf](https://github.com/wangeditor-team/wangEditor/commit/dd8bdafa3d180f7c4e1e39f9a0e7f276d4b723de))
+
+
+### Features
+
+* add onselectionchange api ([afa36a8](https://github.com/wangeditor-team/wangEditor/commit/afa36a833e62a593f056cea9bc760fa46c930708))
+
+## [4.7.4](https://github.com/wangeditor-team/wangEditor/compare/v4.7.3...v4.7.4) (2021-06-17)
+
+
+### Bug Fixes
+
+* 修复行内code回车后导致样式及插入问题 ([cebf20a](https://github.com/wangeditor-team/wangEditor/commit/cebf20a79df1f979376f27eee128ae3c95a4a4eb))
+* 修复a标签包裹img的 取消链接 问题 ([23eb557](https://github.com/wangeditor-team/wangEditor/commit/23eb557a5dabcdc6201753695a8590dec539fe9e))
+
+## [4.7.3](https://github.com/wangeditor-team/wangEditor/compare/v4.7.2...v4.7.3) (2021-06-10)
+
+
+### Bug Fixes
+
+* 特殊情况下无法通过backspace删除图片 ([0648a93](https://github.com/wangeditor-team/wangEditor/commit/0648a9340a7c156dbc16b83e955f684854cb8c76))
+* 优化粘贴时过滤meta的行为 ([313665c](https://github.com/wangeditor-team/wangEditor/commit/313665c5a656314477f8973e0cdff9c4ba125aeb))
+
 ## [4.7.2](https://github.com/wangeditor-team/wangEditor/compare/v4.7.1...v4.7.2) (2021-06-03)
 
 
