@@ -57,7 +57,6 @@ function createShowHideFn(editor: Editor) {
                             // 用文字，替换链接
                             editor.cmd.do('insertHTML', '<span>' + htmlInTagA + '</span>')
                         }
-
                     }
 
                     // 返回 true，表示执行完之后，隐藏 tooltip。否则不隐藏。

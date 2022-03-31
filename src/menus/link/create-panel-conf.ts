@@ -7,9 +7,10 @@ import Editor from '../../editor/index'
 import { PanelConf } from '../menu-constructors/Panel'
 import { getRandom } from '../../utils/util'
 import $, { DomElement } from '../../utils/dom-core'
-import isActive from './is-active'
+import isActive, { getParentNodeA, EXTRA_TAG } from './is-active'
 import { insertHtml } from './util'
 import { getATag } from '../../utils/byYanghao/getTagA'
+import xss from 'xss'
 export default function (editor: Editor, text: string, link: string): PanelConf {
     // panel 中需要用到的id
     const inputLinkId = getRandom('input-link')
@@ -55,15 +56,34 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
         // }
         // ----------------------将链接的json串放到data-json属性上 yanghao-------------------------
         // fix: 修复列表下无法设置超链接的问题(替换选中文字中的标签)
-        const subStr = new RegExp(/(<\/*ul>)|(<\/*li>)|(<\/*ol>)/g)
-        text = text.replace(subStr, '')
+
+        // const TagRegExp = new RegExp(/(<\/?ul>)|(<\/?li>)|(<\/?ol>)/g)
+
+        // const resultText = text.replace(TagRegExp, '')
+
+        /**
+         * fix: 插入链接后再修改链接地址问题，会导致页面链接有问题
+         *
+         * 同上，列表无法插入链接的原因，是因为在insertLink, 处理text时有问题。
+         */
+        const resultText = text.replace(/</g, '&lt;').replace(/>/g, '&gt;') // Link xss
+        const xssLink = xss(link)
+        const $elem: DomElement = $(`<a target="_blank" data-json="${xssLink}">${resultText}</a>`)
+        const linkDom = $elem.elems[0] as HTMLAnchorElement
+
+        // fix: 字符转义问题，https://xxx.org?bar=1&macro=2 => https://xxx.org?bar=1¯o=2
+        linkDom.innerText = text
+
+        // 避免拼接字符串，带来的字符串嵌套问题：如: <a href=""><img src=1 xx />"> 造成xss攻击
+        // linkDom.href = link
+
         if (isActive(editor)) {
             // 选区处于链接中，则选中整个菜单，再执行 insertHTML
             selectLinkElem()
-            editor.cmd.do('insertHTML', `<a class="editor-link" data-json="${link}">${text}</a>`)
+            editor.cmd.do('insertElem', $elem)
         } else {
             // 选区未处于链接中，直接插入即可
-            editor.cmd.do('insertHTML', `<a class="editor-link" data-json="${link}">${text}</a>`)
+            editor.cmd.do('insertElem', $elem)
         }
         // ----------------------------------------------------------------------------------------
     }
@@ -112,6 +132,9 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
         width: 300,
         height: 0,
 
+        // 拼接字符串的：xss 攻击：
+        //    如值为："><img src=1 onerror=alert(/xss/)>， 插入后：value=""><img src=1 onerror=alert(/xss/)>", 插入一个img元素
+
         // panel 中可包含多个 tab
         tabs: [
             {
@@ -124,7 +147,6 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                             disabled="disabled"
                             type="text"
                             class="block"
-                            value="${text}"
                             placeholder="${editor.i18next.t('menus.panelMenus.link.链接文字')}"/>
                         </td>
                         <input
@@ -136,12 +158,13 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                             placeholder="请点击此处选择链接"/>
                         </td>
                         <div class="w-e-button-container">
-														${!link
-                        ? `<button type="button" id="${btnOkId}" class="right"> ${editor.i18next.t(
-                            '插入'
-                        )} </button>`
-                        : ''
-                    }
+														${
+                                                            !link
+                                                                ? `<button type="button" id="${btnOkId}" class="right"> ${editor.i18next.t(
+                                                                      '插入'
+                                                                  )} </button>`
+                                                                : ''
+                                                        }
                             <button type="button" id="${btnDelId}" class="gray right" style="display:${delBtnDisplay}">
                                 ${editor.i18next.t('menus.panelMenus.link.取消链接')}
                             </button>
@@ -154,6 +177,10 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                         selector: '#' + btnOkId,
                         type: 'click',
                         fn: () => {
+                            // 获取链接区间的顶层元素
+                            const $selectionContainerElem = editor.selection.getSelectionContainerElem()!
+                            const $elem = $selectionContainerElem?.elems[0]
+
                             // 获取选取
                             editor.selection.restoreSelection()
                             const topNode = editor.selection
@@ -212,6 +239,39 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                             if (!text) text = link
                             // 校验链接是否满足用户的规则，若不满足则不插入
                             if (!checkLink(text, link)) return
+
+                            /**
+                             * 插入链接
+                             * 1、针对首次插入链接，利用选区插入a标签即可
+                             * 1、针对：<a><b>xxxx</b></a> 情况，用户操作修改或者替换链接时，编辑得到a，修改已有a标签的href
+                             * 2、针对：<b><a>xxxx</a></b> 情况, 用户操作修改或者替换链接时，只要修改已有a标签的href
+                             */
+
+                            // 选区范围是a标签，直接替换href链接即可
+                            if ($elem?.nodeName === 'A') {
+                                $elem.setAttribute('href', link)
+                                $elem.innerText = text
+
+                                return true
+                            }
+
+                            // 不是a标签，并且为特殊元素, 需要检查是不是首次设置链接，还是已经设置过链接。
+                            if ($elem?.nodeName !== 'A' && EXTRA_TAG.includes($elem.nodeName)) {
+                                const nodeA = getParentNodeA($selectionContainerElem)
+
+                                // 防止第一次设置就为特殊元素，这种情况应该为首次设置链接
+                                if (nodeA) {
+                                    // 链接设置a
+                                    nodeA.setAttribute('href', link)
+
+                                    // 文案还是要设置刚开始的元素内的文字，比如加粗的元素，不然会将加粗替代
+                                    $elem.innerText = text
+
+                                    return true
+                                }
+                            }
+
+                            // 首次插入链接
                             insertLink(text, link)
 
                             // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
@@ -234,6 +294,35 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                 ],
             }, // tab end
         ], // tabs end
+        /**
+         * 设置input的值，分别为文案和链接地址设置值
+         *
+         * 利用dom 设置链接文案的值，防止回填拼接引号问题, 出现xss攻击
+         *
+         * @param $container 对应上面生成的dom容器
+         * @param type text | link
+         */
+        setLinkValue($container: DomElement, type: string) {
+            let inputId = ''
+            let inputValue = ''
+            let inputDom
+
+            // 设置链接文案
+            if (type === 'text') {
+                inputId = `#${inputTextId}`
+                inputValue = text
+            }
+
+            // 这只链接地址
+            if (type === 'link') {
+                inputId = `#${inputLinkId}`
+                inputValue = link
+            }
+
+            inputDom = $container.find(inputId).elems[0] as HTMLInputElement
+
+            inputDom.value = inputValue
+        },
     }
 
     return conf

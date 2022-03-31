@@ -60,6 +60,7 @@ class Link extends PanelMenu implements MenuActive {
         if (this.isActive) {
             // 菜单被激活，说明选区在链接里
             $linkElem = editor.selection.getSelectionContainerElem()
+
             if (!$linkElem) {
                 return
             }

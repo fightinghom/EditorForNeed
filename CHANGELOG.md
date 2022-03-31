@@ -1,3 +1,44 @@
+## [4.7.12](https://github.com/wangeditor-team/wangEditor/compare/v4.7.11...v4.7.12) (2022-02-25)
+
+
+### Bug Fixes
+
+* 链接修改字号后再点链接按钮无法看到链接地址 ([b396a1e](https://github.com/wangeditor-team/wangEditor/commit/b396a1e42cab307a6681ca03321b58162bfc396c))
+* 修复UI无序列表全选不居中问题 ([158628d](https://github.com/wangeditor-team/wangEditor/commit/158628d3e9a80eab910334d0ad4f5a43dad2f0e8))
+* url或者常规文本中HTML转义字符显示异常 ([03310ee](https://github.com/wangeditor-team/wangEditor/commit/03310eedc40283c2e228281f1f7eeea9c06c8fa9))
+
+
+### Features
+
+* xss ([6257a2e](https://github.com/wangeditor-team/wangEditor/commit/6257a2e166346913c34ac5cfb31b6a46e9544c5a))
+
+## [4.7.11](https://github.com/wangeditor-team/wangEditor/compare/v4.7.10...v4.7.11) (2021-12-25)
+
+
+### Bug Fixes
+
+* 插入链接后再修改的问题 ([fcaef96](https://github.com/wangeditor-team/wangEditor/commit/fcaef96983e764d0014238d498531344526c3345))
+* 删除文字的时候前一张图片不会被删除 ([7c63218](https://github.com/wangeditor-team/wangEditor/commit/7c63218812604c8791f8ab06b656fa197779d2a6))
+* 删除文字的时候前一张图片不会被删除 ([bac1b1e](https://github.com/wangeditor-team/wangEditor/commit/bac1b1ea2b597d3c7240506258703eb1792ec2c9))
+* 修复选中段落设置行高，最后一行的内容会被重复添加的问题 ([46e49a9](https://github.com/wangeditor-team/wangEditor/commit/46e49a92e84f5dc29a67386f5b3d41dad29b41a5))
+* delete text will delete img too ([2d060d5](https://github.com/wangeditor-team/wangEditor/commit/2d060d5fb16ee1edf281383acf99299c0971f47c))
+
+## [4.7.10](https://github.com/wangeditor-team/wangEditor/compare/v4.7.9...v4.7.10) (2021-12-01)
+
+
+### Bug Fixes
+
+* 复制单张图片无效 ([698c013](https://github.com/wangeditor-team/wangEditor/commit/698c013445a63caba9ea690227cacc1d947348fe))
+
+## [4.7.9](https://github.com/wangeditor-team/wangEditor/compare/v4.7.8...v4.7.9) (2021-10-17)
+
+
+### Bug Fixes
+
+* 修复谷歌内容为空时拼音输入第一个字母丢失的bug ([52301c1](https://github.com/wangeditor-team/wangEditor/commit/52301c127b10b78847f4825a803f49c9195b041a))
+* 修复内容随后设置标题，会报错，而且无法再编辑的问题 ([5022ceb](https://github.com/wangeditor-team/wangEditor/commit/5022ceb2ee97f8aed87427b0fb363c5262fad2a5))
+* 修复设置标题控制台报错的bug ([f4680b2](https://github.com/wangeditor-team/wangEditor/commit/f4680b2634679ffd3d0186f24e713438fcc907d0))
+
 ## [4.7.8](https://github.com/wangeditor-team/wangEditor/compare/v4.7.7...v4.7.8) (2021-09-09)
 
 
