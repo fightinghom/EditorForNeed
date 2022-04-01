@@ -66,13 +66,14 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
          *
          * 同上，列表无法插入链接的原因，是因为在insertLink, 处理text时有问题。
          */
-        const resultText = text.replace(/</g, '&lt;').replace(/>/g, '&gt;') // Link xss
+        const resultText = xss(text) // Link xss
         const xssLink = xss(link)
-        const $elem: DomElement = $(`<a target="_blank" data-json="${xssLink}">${resultText}</a>`)
+        const $elem: DomElement = $(
+            `<a class="editor-link" target="_blank" data-json="${xssLink}"></a>`
+        )
         const linkDom = $elem.elems[0] as HTMLAnchorElement
-
         // fix: 字符转义问题，https://xxx.org?bar=1&macro=2 => https://xxx.org?bar=1¯o=2
-        linkDom.innerText = text
+        linkDom.innerHTML = resultText
 
         // 避免拼接字符串，带来的字符串嵌套问题：如: <a href=""><img src=1 xx />"> 造成xss攻击
         // linkDom.href = link
@@ -201,7 +202,7 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                             if (selection && !selection?.isCollapsed) {
                                 let imgReg = /<img.*?(?:>|\/>)/gi
                                 // @ts-ignore：暂时无法解决
-                                if (imgReg.test(selection.anchorNode.outerHTML)) {
+                                if (imgReg.test(selection?.anchorNode.outerHTML)) {
                                     const selectionRange = selection.getRangeAt(0)
                                     const startOffset = selectionRange.startOffset
                                     const container = selectionRange.startContainer
@@ -231,6 +232,7 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
                                 // const end4Str = html.slice(html.length - 4)
                                 // text = end4Str === '<br>' ? html.slice(0, html.length - 4) : html
                                 text = html
+                                console.log('text', text)
                             }
                             // ----------------------------------------------------------------------------------
                             // 链接为空，则不插入

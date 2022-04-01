@@ -6,7 +6,7 @@
 import $, { DomElement } from '../../../utils/dom-core'
 import Tooltip, { TooltipConfType } from '../../menu-constructors/Tooltip'
 import Editor from '../../../editor/index'
-import { getATag } from '../../../utils/byYanghao/getTagA'
+import { EXTRA_TAG } from '../is-active'
 
 /**
  * 生成 Tooltip 的显示隐藏函数
@@ -46,16 +46,38 @@ function createShowHideFn(editor: Editor) {
 
                     // 获取A标签的子项
                     const $childNodes = $link.childNodes()
-                    const tagA = getATag($link)
-                    if (tagA) {
-                        const htmlInTagA = tagA.html()
-                        // 如果链接是图片
-                        if ($childNodes?.getNodeName() === 'IMG') {
-                            // 插入图片
-                            editor.cmd.do('insertHTML', htmlInTagA)
+                    // 如果链接是图片
+                    if ($childNodes?.getNodeName() === 'IMG') {
+                        // 获取选中的图片
+                        const $selectIMG = editor.selection.getSelectionContainerElem()?.children()
+                            ?.elems[0].children[0]
+                        // 插入图片
+                        editor.cmd.do(
+                            'insertHTML',
+                            `<img 
+                                src=${$selectIMG?.getAttribute('src')} 
+                                style=${$selectIMG?.getAttribute('style')}>`
+                        )
+                    } else {
+                        /**
+                         * 替换链接
+                         *
+                         * 两种情况
+                         * 1. a标签里面可能会含有其他元素如：b, i等，要保留： <a><b></b></a> 先添加链接后加粗
+                         * 2. 特殊标签里嵌套a，也要保留特殊标签：<b><a></a></b>  先加粗后添加链接
+                         */
+                        const linkElem = $link.elems[0]
+
+                        // a标签里面的html结构
+                        const selectionContent = linkElem.innerHTML
+
+                        // a标签的父元素
+                        const linkParentNode = linkElem.parentElement
+
+                        if (linkParentNode && EXTRA_TAG.includes(linkParentNode.nodeName)) {
+                            linkParentNode.innerHTML = selectionContent
                         } else {
-                            // 用文字，替换链接
-                            editor.cmd.do('insertHTML', '<span>' + htmlInTagA + '</span>')
+                            editor.cmd.do('insertHTML', '<span>' + selectionContent + '</span>')
                         }
                     }
 
