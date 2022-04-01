@@ -29,7 +29,7 @@ function createShowHideFn(editor: Editor) {
                     } else {
                         // const link = $link.attr('href')
                         // window.open(link, '_target')
-                        const link = $link.attr('data-json')
+                        const link = $link.attr(editor.config.hrefToDataJson ? 'data-json' : 'href')
                         window.open(link, '_target')
                     }
                     // ------------------------------------------------------------------

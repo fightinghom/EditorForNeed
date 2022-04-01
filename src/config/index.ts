@@ -104,8 +104,12 @@ export type ConfigType = {
 
     menuTooltipPosition: tooltipPositionType
     // -----------------自定义config事件 yanghao-----------------
+    // 链接的占位符
+    linkPlaceholder: string
     // linkInput绑定的fucos事件
     linkInputClickHandle: EventListenerOrEventListenerObject
+    // 是否将a标签的href转为data-json
+    hrefToDataJson: Boolean
     // 查看链接绑定的click事件
     seeLinkClickHandle: Function
     // ---------------------------------------------------------------

@@ -69,7 +69,9 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
         const resultText = xss(text) // Link xss
         const xssLink = xss(link)
         const $elem: DomElement = $(
-            `<a class="editor-link" target="_blank" data-json="${xssLink}"></a>`
+            `<a class="editor-link" target="_blank" ${
+                editor.config.hrefToDataJson ? 'data-json' : 'href'
+            }="${xssLink}"></a>`
         )
         const linkDom = $elem.elems[0] as HTMLAnchorElement
         // fix: 字符转义问题，https://xxx.org?bar=1&macro=2 => https://xxx.org?bar=1¯o=2
@@ -156,7 +158,7 @@ export default function (editor: Editor, text: string, link: string): PanelConf 
 														${link ? 'disabled="disabled"' : ''}
                             class="block"
                             value="${link}"
-                            placeholder="请点击此处选择链接"/>
+                            placeholder="${editor.config.linkPlaceholder || '请点击此处选择链接'}"/>
                         </td>
                         <div class="w-e-button-container">
 														${
